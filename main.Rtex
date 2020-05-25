@@ -4,19 +4,23 @@
 \title{Article Title}
 
 \author[1,*]{J. Nathan Matias}
-\author[2]{Julia Kamin}
-\author[2]{Max Klein}
-\author[2]{Eric Pennington}
-\affil[1]{Cornell University, Communication Department, Ithaca, USA}
-\affil[2]{Citizens and Technology Lab}
+\author[1]{Julia Kamin}
+\author[1]{Max Klein}
+\author[1]{Eric Pennington}
+\affil[1]{Cornell University, Department of Communication, Ithaca, USA}
 
 \affil[*]{nathan.matias@cornell.edu}
 
 
+% Load paper data
+<<init, echo=FALSE>>=
+load("data/paper-data.RData")
+@
+
 %\keywords{Keyword1, Keyword2, Keyword3}
 
 \begin{abstract}
-TODO Abstract. TODO Abstract. TODO Abstract. TODO Abstract. TODO Abstract. TODO Abstract. TODO Abstract. TODO Abstract. TODO Abstract. TODO Abstract. TODO Abstract.
+The study included a total of $\Sexpr{prettyNum(nrow(all.participants), big.mark=",")}$ participants.
 
 \end{abstract}
 \begin{document}

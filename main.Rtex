@@ -14,6 +14,7 @@
 
 % Load paper data
 <<init, echo=FALSE>>=
+library(ggplot2)
 load("data/paper-data.RData")
 @
 
@@ -21,6 +22,12 @@ load("data/paper-data.RData")
 
 \begin{abstract}
 The study included a total of $\Sexpr{prettyNum(nrow(all.participants), big.mark=",")}$ participants.
+
+<<plot1, echo=FALSE, fig.pos="t", fig.height=4, fig.width=4, fig.cap="Labor Hours">>=
+labor.hours.plot
+@
+
+The figure \ref{fig:plot1} is simple histogram.
 
 \end{abstract}
 \begin{document}

@@ -1,6 +1,8 @@
 \documentclass[fleqn,10pt]{wlscirep}
 \usepackage[utf8]{inputenc}
 \usepackage[T1]{fontenc}
+%Path relative to the main .tex file 
+\graphicspath{ {./figs/} }
 \title{Article Title}
 
 \author[1,*]{J. Nathan Matias}
@@ -39,6 +41,28 @@ The study included a total of $\Sexpr{prettyNum(nrow(all.participants), big.mark
 \section*{Results}
 
 Up to three levels of subheading are permitted. Subheadings should not be numbered.
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.8\textwidth]{figs/labor.hours.plot.png}
+    \caption{a nice plot}
+    \label{fig:labor.hours}
+\end{figure}
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.8\textwidth]{figs/retention.plot.png}
+    \caption{a nice plot}
+    \label{fig:retention}
+\end{figure}
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.8\textwidth]{figs/thanks.sent.plot.png}
+    \caption{a nice plot}
+    \label{fig:thanks.sent}
+\end{figure}
+
+\input{tables/table1}
 
 \section*{Discussion}
 

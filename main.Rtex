@@ -1,6 +1,8 @@
 \documentclass[fleqn,10pt]{wlscirep}
 \usepackage[utf8]{inputenc}
 \usepackage[T1]{fontenc}
+\usepackage{makecell}
+\usepackage{multirow}
 %Path relative to the main .tex file 
 \graphicspath{ {./figs/} }
 \title{Article Title}

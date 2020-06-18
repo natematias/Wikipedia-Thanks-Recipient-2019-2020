@@ -2,10 +2,11 @@
 \centering
 \caption{Data from the Wikipedia logs for the Arabic, German, Polish and Persian Wikipedias from 2019-08-02 to 2020-02-11. “Available during the study” were accounts that were active during at least one of the waves of the study. “Included in the study” are accounts that met the quality requirements and were included in the study. “\% of treatment thanked” is the percentage of the treatment group who actually received thanks.}
 \label{summary}
-\begin{tabular}{llrrrllrrr}
+% \resizebox{\columnwidth}{!}{
+\begin{tabular}{llrrr|rrrrr}
 \toprule
-            &             & \multicolumn{4}{l}{eligible participants} & \multicolumn{4}{l}{average outcome values for accounts that were not assigned to be thanked (control group)} \\
-            &             &        monthly active & available during the study & included in the study & \% of treatment thanked &                                                                  two week retention rate & pre-study labor hours & difference in daily labor hours & thanks sent \\
+            &             \multicolumn{5}{l}{\thead{eligible participants}} & \multicolumn{4}{l}{\thead{average outcome values for control group}} \\
+            &             &        \thead{monthly \\ active} & \thead{available \\for study} & \thead{included \\ in study} & \thead{\% treatment \\ thanked} & \thead{two week \\ retention rate} & \thead{pre-study \\ labor hours} & \thead{difference in \\ daily labor hours} & \thead{thanks \\ sent} \\
 \midrule
 \multirow{4}{*}{Newcomer} & Polish &                  2414 &                       2756 &                  1653 &                    14\% &                                                19\% &              0.026869 &                       -0.015002 &    0.037944 \\
             & German &                  8555 &                      10476 &                  5834 &                    48\% &                                                18\% &              0.023823 &                       -0.011400 &    0.051833 \\
@@ -17,4 +18,5 @@
             & Experienced &                  3884 &                      12837 &                  5921 &                    43\% &                                                38\% &              0.046080 &                        0.000904 &    0.310526 \\
 \bottomrule
 \end{tabular}
+% }
 \end{table}

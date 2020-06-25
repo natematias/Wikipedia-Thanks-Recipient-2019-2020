@@ -31,50 +31,72 @@ The study included a total of $\Sexpr{prettyNum(nrow(all.participants), big.mark
 
 \flushbottom
 \maketitle
-% * <john.hammersley@gmail.com> 2015-02-09T12:07:31.197Z:
-%
-%  Click the title above to edit the author information and abstract
-%
+
 \thispagestyle{empty}
 
 \section*{Introduction}
+%Introduce the scientific and pragmatic question, including literature review. This is where we make clear that the question is interesting and that it matters. Four to eight paragraphs.
+
+Intro paragraph, which explains pragmatic importance.
+
+Science paragraph, which introduces scientific importance of the question we think is most important and offers a lit review (likely the diffusion of appreciation). (likely more than 1 para)
+
+Science paragraph(s) which explain the importance of the next important question (most likely the finding on retention).
 
 
 \section*{Results}
+Succinctly describe the study design in one paragraph.
 
-Up to three levels of subheading are permitted. Subheadings should not be numbered.
+Report each topline result in a single paragraph, in the order they are set up in the introduction.
+
+% Up to three levels of subheading are permitted. Subheadings should not be numbered.
 \begin{figure}[h]
     \centering
     \includegraphics[width=0.8\textwidth]{figs/labor.hours.plot.png}
-    \caption{a nice plot}
+    \caption{}
     \label{fig:labor.hours}
 \end{figure}
 
 \begin{figure}[h]
     \centering
     \includegraphics[width=0.8\textwidth]{figs/retention.plot.png}
-    \caption{a nice plot}
+    \caption{}
     \label{fig:retention}
 \end{figure}
 
 \begin{figure}[h]
     \centering
     \includegraphics[width=0.8\textwidth]{figs/thanks.sent.plot.png}
-    \caption{a nice plot}
+    \caption{}
     \label{fig:thanks.sent}
 \end{figure}
 
 \input{tables/thankee_table1}
 
 \section*{Discussion}
-
 %The Discussion should be succinct and must not contain subheadings.
 
+TODO: one paragraph for each main finding in the study.
+
+
 \section*{Methods}
+TODO: offer a one-paragraph narrative description of the experiment experience for a participant, from first moment of recruitment to the completion of the study.
+Our main methodology in this study was to find quality new and experienced users in Arabic, German, Farsi and Polish Wikipedias. These users were split equally into treatment and control groups using block randomizaiton. We then followed the editing activity of the treatment users, and presented it inside an web-application, where selected experienced Wikipedians could choose to thank or skip edits in a carousel. (This is not such unusual behaviour, Wikipedians can normally thank other users for their edits, but typically only via the ``history'' page of an article.) If an experienced Wikipedian using the web-app chose to thank another user, the thank would be sent immediately \textit{on behalf} of the thank-sender, and the thank-recpient would see the notification as coming from the thank-sender, not from our web-app\ref{fig:thank.notification}. Note, not all users loaded into the app were thanked as we did not require any user thank anyone else. We then took behavioural measures of user retention and contribution and surveyed the users 42-days after receiving a thanks. Users who were not thanked within 90 days of being considered within the application were removed from the carousel and measured and surveyed. The survey occured by leaving a Talk-page message on their user-talk pages linking to a Qualtrics on-line survey. Users in the control condition were measured and surveyed at the same time as the treatment user in the randomization block. We also debriefed all users that ever appeared in the app via talk-page message again after the study finally concluded.
 
-%Topical subheadings are allowed. Authors must ensure that their Methods section includes adequate experimental and characterization data necessary for others in the field to reproduce their work.
+\subsection*{Participant recruitment}
+TODO: describe how participants were recruited into the study, describing exactly how we determined eligibility in each language.
+Hundreds to thousands of users sign up different language wikipedias everday, however only a small percentage of them go on to make any edits at all. From power analysis and based on community decisions we were interested in new users (accounts created less than 84 days ago)  in Arabic, Polish, and German Wikipedias; and experienced (accounts created more than 84 days ago)  in Polish and Farsi. Furthermore we required each user to have a minimum of 4 quality, non-talk-page, non-user-space edits . Quality was determined by using the non-damaging ORES criteria\cite{ores} in the case of Arabic, Farsi and Polish Wikipedias, and flagged-revisions in the case of German which does not use ORES. In order to meet our power goals, we had to repeat this recruitment process for three 84-day ``waves''. \ref{summary} shows the relative number of \textit{monthly active users}, giving an approximate ``size'' of the Wikipedia editor pool, the number \textit{available for the study} which were accounts that were creative or active during at least one wave of the study, and the number \textit{included in the study} which met all of the relevant quality and minimum edit requirements. Less than 10 partcipants were removed from the study by GDPR request.
 
-\bibliography{sample}
+\subsection*{Receiving Thanks}
+TODO: succinctly explain the experience of receiving thanks.
+When a user receives a thanks the main notification channels are a badge within a Wikipedia page, and an email by default.
+\subsection*{Survey Instruments}
+TODO: explain the relevant survey instruments and cite references they are based on.
+
+\subsection*{Behavioral Measures}
+TODO: explain the behavioral measures and cite references they are based on.
+
+\bibliography{references}
 
 \section*{Acknowledgements (not compulsory)}
 

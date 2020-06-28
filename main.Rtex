@@ -41,32 +41,99 @@ Intro paragraph, which explains pragmatic importance.
 
 Science paragraph, which introduces scientific importance of the question we think is most important and offers a lit review (likely the diffusion of appreciation). (likely more than 1 para)
 
+TODO: somewhere here, explain the purpose of the Thanks system...
+
 Science paragraph(s) which explain the importance of the next important question (most likely the finding on retention).
+
+When a user receives a ``Thanks'' on Wikipedia, they receive an alert on the Wikipedia website \ref{fig:thank.notification}, and an email (by default). From this notification the article of the thanked edit is displayed, and importantly so is the thanking user with a link to their user page. Compared with forms of public recognition on Wikipedia, these messages of appreciation are private and only viewable by the recipient.
+
+\section*{Materials and Methods}
+We designed a field experiment to test the influence of private appreciation on pro-social behavior among Wikipedia contributors in Arabic, German, Persian, and Polish language Wikipedias. We test whether receiving thanks could cause volunteer contributors of different experience levels to increase participation and send appreciation to others in turn. Each language Wikipedia consented to participate, and participants were debriefed after the study, in a protocol approved by the Princeton University and Cornell University Institutional Review boards.
+
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.8\textwidth]{figs/notificaiton-screenshot.png}
+    \caption{Notification received by participants who received thanks}
+    \label{fig:thank.notification}
+\end{figure}
+
+Within language Wikipedia groups, we used machine learning and human-coded criteria to identify Wikipedia editors whose contributions were eligible for appreciation. Participants were eligible for the study if they made at least four eligible contributions to Arabic, German, Persian, or Polish Wikipedia in the previous 540 days. Edits were eligible if they were made to pages other than the account's personal profile and met language-specific criteria. In German, edits were eligible if they were made by an account that had been identified as a trusted editor through a human ``flagged revision'' review process. In Arabic, Persian, and Polish Wikipedias, we used the ORES machine learning system, which had been trained by community members to identify good-faith and non-damaging edits. \cite{halfaker_ores_2016} Some communities limited their efforts to newcomers or experienced accounts only, to ensure their volunteers could thank a sufficient number of participants. Among active accounts, 55\% of newcomers and 46\% of experienced accounts met the criteria and were included (Table \ref{table:participants}). 
+
+Participants were stratified by experience into the group of newcomers who had joined in the previous 90 days and more experienced editors. Within these groups and within languages, we randomly assigned participants to receive a message of thanks or not within matched pairs, based on their previous expressions of thanks and the number of labor hours they contributed over the previous 84 days. 
+
+We created a software application to encourage experienced Wikipedia volunteers to send a single message of appreciation to participants in the treatment group, thanking them for a specific contribution (Figure \ref{fig:app}). When an experienced Wikipedian using the software chose to send thanks, a message would be sent immediately to the recipient \textit{on behalf} of the sender through the Wikipedia interface (Figure \ref{fig:thank.notification}). The message would also arrive via email if the recipient allowed email notifications (the default on Wikipedia).
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.8\textwidth]{figs/cs-app-de-2-options.png}
+    \caption{Volunteers used this software application to choose which contributions to thank}
+    \label{fig:app}
+\end{figure}
+
+From August 2, 2019 through February 11, 2020, a total of 334 volunteers reviewed a queue of eligible edits by participants in the treatment group. To meet our sample size goals for newcomers, we conducted the study in a series of 84-day waves, including accounts created in the period since the last wave. 
+
+We then observed participant behavior on Wikipedia over the next six weeks after receiving thanks. In the case of those who did not receive thanks, we observed the six weeks after random assignment. Using administrative data from the Wikipedia software system, we created measures of two-week retention, the difference labor hours they contributed, and the number of thanks they sent to others during the observation period. Two week retention is a binary variable suitable for survival analysis that records whether someone was still contributing to Wikipedia in the second week of the observation period. In our measure, someone has stopped contributing by the second week if they take no actions in the five weeks after the second week begins. Labor hours are a continuous, aggregate estimate of the time spent contributing to Wikipedia across edit sessions, contiguous sequences of contributions near to each other in time.\cite{geiger_using_2013} To calculate the difference in labor hours, we counted the labor hours per day in the six weeks before receiving thanks and subtracted it from the daily labor hours in the six weeks after. As a manipulation check, we also surveyed participants after six weeks to ask if they remembered receiving thanks, with a response rate of $\Sexpr{prettyNum(nrow(subset(participants,complier))/ nrow(participants)*100, digits=1)}$\% that was balanced between treatment and control.
 
 
 \section*{Results}
-Succinctly describe the study design in one paragraph.
+We evaluated the intent-to-treat effect of being assigned to receive thanks among $\Sexpr{prettyNum(nrow(participants), big.mark=",")}$ participants from August 2, 2019 through March 24, 2020. Estimates are adjusted for multiple comparisons.\cite{holm_simple_1979} Among active accounts, 55\% of newcomers and 46\% of experienced accounts met the criteria and were included (Table \ref{table:participants}). Among the $\Sexpr{prettyNum(nrow(subset(participants, TREAT==1)), big.mark=",")}$ participants in the treatment group, volunteers thanked 31\% of newcomers and 43\% of experienced accounts (Table \ref{table:participants}).
 
-Report each topline result in a single paragraph, in the order they are set up in the introduction.
+% Removing randomization blocks associated with software errors and opt-out requests, the study included a total of $\Sexpr{prettyNum(nrow(participants), big.mark=",")}$ participants. 
+
+Across all four Wikipedia communities, being assigned to receive thanks caused participants to thank others at $\Sexpr{prettyNum(exp(subset(all.lang.results, model=="thanks sent" & lang == "all")$Estimate), digits=2)}$ times the rate of those in the control group (p=$\Sexpr{prettyNum(subset(all.lang.results, model=="thanks sent" & lang == "all")$pvalue, digits=1)}$) on average. Being assigned to receive thanks also increased the two-week retention of participants by $\Sexpr{prettyNum(subset(all.lang.results, model=="retention" & lang == "all")$Estimate*100, digits=1)}$ percentage points on average (p<0.001). 
+
+Among $\Sexpr{prettyNum(nrow(subset(participants, newcomer)), big.mark=",")}$ newcomers in Arabic, German, and Polish Wikipedias, we failed to find an effect on the number of labor hours they contributed over six weeks (p=$\Sexpr{prettyNum(subset(all.lang.results, model=="labor hours" & lang == "all")$pvalue, digits=2)}$).
+
+\begin{table}
+\begin{center}
+\begin{tabular}{l c c c c c c}
+\hline
+Outcome & Estimator & Subgroup & N & Estimate & Standard Error & P (adjusted) \\
+\hline
+Thanks sent & negative binomial & all &
+  $\Sexpr{prettyNum(subset(all.lang.results, model=="thanks sent" & lang == "all")$n.size, big.mark=",")}$ &
+  $\Sexpr{prettyNum(subset(all.lang.results, model=="thanks sent" & lang == "all")$Estimate, digits=2)}$ & 
+  $\Sexpr{prettyNum(subset(all.lang.results, model=="thanks sent" & lang == "all")$Std..Error, digits=2)}$ &
+  $\Sexpr{prettyNum(subset(all.lang.results, model=="thanks sent" & lang == "all")$pvalue, digits=2)}$ \\
+  
+Two week retention & difference in means & all & 
+  $\Sexpr{prettyNum(subset(all.lang.results, model=="retention" & lang == "all")$n.size, big.mark=",")}$ &
+  $\Sexpr{prettyNum(subset(all.lang.results, model=="retention" & lang == "all")$Estimate, digits=2)}$ & 
+  $\Sexpr{prettyNum(subset(all.lang.results, model=="retention" & lang == "all")$Std..Error, digits=1)}$ &
+  $\Sexpr{prettyNum(subset(all.lang.results, model=="retention" & lang == "all")$pvalue, digits=2)}$ \\
+  
+Difference in daily & difference in means & new & 
+  $\Sexpr{prettyNum(subset(all.lang.results, model=="labor hours" & subgroup=="newcomer" & lang == "all")$n.size, big.mark=",")}$ &
+  $\Sexpr{prettyNum(subset(all.lang.results, model=="labor hours" & subgroup=="newcomer" & lang == "all")$Estimate, digits=1)}$ & 
+  $\Sexpr{prettyNum(subset(all.lang.results, model=="labor hours" & subgroup=="newcomer" & lang == "all")$Std..Error, digits=1)}$ & 
+  $\Sexpr{prettyNum(subset(all.lang.results, model=="labor hours" & subgroup=="newcomer" & lang == "all")$pvalue, digits=2)}$ \\
+labor hours \\
+\hline
+\end{tabular}
+\caption{Estimates of average treatment effects among Wikipedia participants}
+\label{table:results}
+\end{center}
+\end{table}
 
 % Up to three levels of subheading are permitted. Subheadings should not be numbered.
 \begin{figure}[h]
     \centering
-    \includegraphics[width=0.8\textwidth]{figs/labor.hours.plot.png}
+    \includegraphics[width=0.8\textwidth]{figs/labor.hours.plot.pdf}
     \caption{}
     \label{fig:labor.hours}
 \end{figure}
 
 \begin{figure}[h]
     \centering
-    \includegraphics[width=0.8\textwidth]{figs/retention.plot.png}
+    \includegraphics[width=0.8\textwidth]{figs/retention.plot.pdf}
     \caption{}
     \label{fig:retention}
 \end{figure}
 
 \begin{figure}[h]
     \centering
-    \includegraphics[width=0.8\textwidth]{figs/thanks.sent.plot.png}
+    \includegraphics[width=0.8\textwidth]{figs/thanks.sent.plot.pdf}
     \caption{}
     \label{fig:thanks.sent}
 \end{figure}
@@ -79,37 +146,22 @@ Report each topline result in a single paragraph, in the order they are set up i
 TODO: one paragraph for each main finding in the study.
 
 
-\section*{Methods}
-TODO: offer a one-paragraph narrative description of the experiment experience for a participant, from first moment of recruitment to the completion of the study.
-Our main methodology in this study was to find quality new and experienced users in Arabic, German, Farsi and Polish Wikipedias. These users were split equally into treatment and control groups using block randomizaiton. We then followed the editing activity of the treatment users, and presented it inside an web-application, where selected experienced Wikipedians could choose to thank or skip edits in a carousel. (This is not such unusual behaviour, Wikipedians can normally thank other users for their edits, but typically only via the ``history'' page of an article.) If an experienced Wikipedian using the web-app chose to thank another user, the thank would be sent immediately \textit{on behalf} of the thank-sender, and the thank-recpient would see the notification as coming from the thank-sender, not from our web-app\ref{fig:thank.notification}. Note, not all users loaded into the app were thanked as we did not require any user thank anyone else. We then took behavioural measures of user retention and contribution and surveyed the users 42-days after receiving a thanks. Users who were not thanked within 90 days of being considered within the application were removed from the carousel and measured and surveyed. The survey occured by leaving a Talk-page message on their user-talk pages linking to a Qualtrics on-line survey. Users in the control condition were measured and surveyed at the same time as the treatment user in the randomization block. We also debriefed all users that ever appeared in the app via talk-page message again after the study finally concluded.
-
-\subsection*{Participant recruitment}
-TODO: describe how participants were recruited into the study, describing exactly how we determined eligibility in each language.
-Hundreds to thousands of users sign up different language wikipedias everday, however only a small percentage of them go on to make any edits at all. From power analysis and based on community decisions we were interested in new users (accounts created less than 84 days ago)  in Arabic, Polish, and German Wikipedias; and experienced (accounts created more than 84 days ago)  in Polish and Farsi. Furthermore we required each user to have a minimum of 4 quality, non-talk-page, non-user-space edits . Quality was determined by using the non-damaging ORES criteria\cite{ores} in the case of Arabic, Farsi and Polish Wikipedias, and flagged-revisions in the case of German which does not use ORES. In order to meet our power goals, we had to repeat this recruitment process for three 84-day ``waves''. \ref{summary} shows the relative number of \textit{monthly active users}, giving an approximate ``size'' of the Wikipedia editor pool, the number \textit{available for the study} which were accounts that were creative or active during at least one wave of the study, and the number \textit{included in the study} which met all of the relevant quality and minimum edit requirements. Less than 10 partcipants were removed from the study by GDPR request.
-
-\subsection*{Receiving Thanks}
-TODO: succinctly explain the experience of receiving thanks.
-When a user receives a thanks the main notification channels are a badge within a Wikipedia page, and an email by default.
-\subsection*{Survey Instruments}
-TODO: explain the relevant survey instruments and cite references they are based on.
-
-\subsection*{Behavioral Measures}
-TODO: explain the behavioral measures and cite references they are based on.
-
 \bibliography{references}
 
 \section*{Acknowledgements (not compulsory)}
 
-%Acknowledgements should be brief, and should not include thanks to anonymous referees and editors, or effusive comments. Grant or contribution numbers may be acknowledged.
+At CAT Lab, communities are co-partners in our research. We are deeply grateful to the many Wikipedians who advised and supported this work. We are especially indebted to our liaisons from partnering Wikipedias – Reem Al-Kashif, Christine Domgörgen,  Mohamed ElGohary, Maria Heuschkel, Amir Ladsgroup, Wojciech Pędzich, Mohsen Salek, and Natalia Szafran-Kozakowska. These liaisons worked closely with us to design the study and guide us from start to finish. This work is a product of their endless wisdom, patience and dedication. We also appreciate the 344 volunteers who generously used our app to send thanks as part of our study. Many also helped us test and fix software bugs to improve the quality of this study.
+
+This research was funded by a grant from the Templeton World Charity Foundation.
 
 \section*{Author contributions statement}
 
 %Must include all authors, identified by initials, for example:
 %A.A. conceived the experiment(s),  A.A. and B.A. conducted the experiment(s), C.A. and D.A. analysed the results.  All authors reviewed the manuscript. 
 
-\section*{Additional information}
+% \section*{Additional information}
 
-To include, in this order: \textbf{Accession codes} (where applicable); \textbf{Competing interests} (mandatory statement). 
+% To include, in this order: \textbf{Accession codes} (where applicable); \textbf{Competing interests} (mandatory statement). 
 
 %The corresponding author is responsible for submitting a \href{http://www.nature.com/srep/policies/index.html#competing}{competing interests statement} on behalf of all authors of the paper. This statement must be included in the submitted article file.
 

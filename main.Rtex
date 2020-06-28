@@ -50,7 +50,6 @@ When a user receives a ``Thanks'' on Wikipedia, they receive an alert on the Wik
 \section*{Materials and Methods}
 We designed a field experiment to test the influence of private appreciation on pro-social behavior among Wikipedia contributors in Arabic, German, Persian, and Polish language Wikipedias. We test whether receiving thanks could cause volunteer contributors of different experience levels to increase participation and send appreciation to others in turn. Each language Wikipedia consented to participate, and participants were debriefed after the study, in a protocol approved by the Princeton University and Cornell University Institutional Review boards.
 
-
 \begin{figure}[h]
     \centering
     \includegraphics[width=0.8\textwidth]{figs/notificaiton-screenshot.png}
@@ -73,17 +72,41 @@ We created a software application to encourage experienced Wikipedia volunteers 
 
 From August 2, 2019 through February 11, 2020, a total of 334 volunteers reviewed a queue of eligible edits by participants in the treatment group. To meet our sample size goals for newcomers, we conducted the study in a series of 84-day waves, including accounts created in the period since the last wave. 
 
-We then observed participant behavior on Wikipedia over the next six weeks after receiving thanks. In the case of those who did not receive thanks, we observed the six weeks after random assignment. Using administrative data from the Wikipedia software system, we created measures of two-week retention, the difference labor hours they contributed, and the number of thanks they sent to others during the observation period. Two week retention is a binary variable suitable for survival analysis that records whether someone was still contributing to Wikipedia in the second week of the observation period. In our measure, someone has stopped contributing by the second week if they take no actions in the five weeks after the second week begins. Labor hours are a continuous, aggregate estimate of the time spent contributing to Wikipedia across edit sessions, contiguous sequences of contributions near to each other in time.\cite{geiger_using_2013} To calculate the difference in labor hours, we counted the labor hours per day in the six weeks before receiving thanks and subtracted it from the daily labor hours in the six weeks after. As a manipulation check, we also surveyed participants after six weeks to ask if they remembered receiving thanks, with a response rate of $\Sexpr{prettyNum(nrow(subset(participants,complier))/ nrow(participants)*100, digits=1)}$\% that was balanced between treatment and control.
+We then observed participant behavior on Wikipedia over the next six weeks after they (or their matched pair) received thanks. In the case of pairs that not receive thanks, we observed the six weeks after random assignment. Using administrative data from the Wikipedia software system, we created measures of two-week retention, the difference labor hours they contributed, and the number of thanks they sent to others during the observation period. Two week retention is a binary variable suitable for survival analysis that records whether someone was still contributing to Wikipedia in the second week of the observation period. In our measure, someone has stopped contributing by the second week if they take no actions in the five weeks after the second week begins. Labor hours are a continuous, aggregate estimate of the time spent contributing to Wikipedia across edit sessions. These sessions contiguous sequences of contributions near to each other in time.\cite{geiger_using_2013} To calculate the difference in labor hours, we counted the labor hours per day in the six weeks before receiving thanks and subtracted it from the daily labor hours in the six weeks after. As a manipulation check, we also surveyed participants after six weeks to ask if they remembered receiving thanks, with a response rate of $\Sexpr{prettyNum(nrow(subset(participants,complier))/ nrow(participants)*100, digits=1)}$\% that was balanced between treatment and control.
 
 
 \section*{Results}
 We evaluated the intent-to-treat effect of being assigned to receive thanks among $\Sexpr{prettyNum(nrow(participants), big.mark=",")}$ participants from August 2, 2019 through March 24, 2020. Estimates are adjusted for multiple comparisons.\cite{holm_simple_1979} Among active accounts, 55\% of newcomers and 46\% of experienced accounts met the criteria and were included (Table \ref{table:participants}). Among the $\Sexpr{prettyNum(nrow(subset(participants, TREAT==1)), big.mark=",")}$ participants in the treatment group, volunteers thanked 31\% of newcomers and 43\% of experienced accounts (Table \ref{table:participants}).
 
+%% BIG TODO: Also report the complier average causal effect in the final paper
+
 % Removing randomization blocks associated with software errors and opt-out requests, the study included a total of $\Sexpr{prettyNum(nrow(participants), big.mark=",")}$ participants. 
 
-Across all four Wikipedia communities, being assigned to receive thanks caused participants to thank others at $\Sexpr{prettyNum(exp(subset(all.lang.results, model=="thanks sent" & lang == "all")$Estimate), digits=2)}$ times the rate of those in the control group (p=$\Sexpr{prettyNum(subset(all.lang.results, model=="thanks sent" & lang == "all")$pvalue, digits=1)}$) on average. Being assigned to receive thanks also increased the two-week retention of participants by $\Sexpr{prettyNum(subset(all.lang.results, model=="retention" & lang == "all")$Estimate*100, digits=1)}$ percentage points on average (p<0.001). 
+Across all four Wikipedia communities, being assigned to receive thanks caused participants to thank others at $\Sexpr{prettyNum(exp(subset(all.lang.results, model=="thanks sent" & lang == "all")$Estimate), digits=2)}$ times the rate of those in the control group (p=$\Sexpr{prettyNum(subset(all.lang.results, model=="thanks sent" & lang == "all")$pvalue, digits=1)}$, Figure \ref{fig:thanks.sent}, Table \ref{table:results}) on average. Being assigned to receive thanks also increased the two-week retention of participants by $\Sexpr{prettyNum(subset(all.lang.results, model=="retention" & lang == "all")$Estimate*100, digits=1)}$ percentage points on average (p<0.001, Figure \ref{fig:retention}, Table \ref{table:results}). 
 
-Among $\Sexpr{prettyNum(nrow(subset(participants, newcomer)), big.mark=",")}$ newcomers in Arabic, German, and Polish Wikipedias, we failed to find an effect on the number of labor hours they contributed over six weeks (p=$\Sexpr{prettyNum(subset(all.lang.results, model=="labor hours" & lang == "all")$pvalue, digits=2)}$).
+Among $\Sexpr{prettyNum(nrow(subset(participants, newcomer)), big.mark=",")}$ newcomers in Arabic, German, and Polish Wikipedias, we failed to find an effect on the difference in daily labor hours over six weeks (p=$\Sexpr{prettyNum(subset(all.lang.results, model=="labor hours" & lang == "all")$pvalue, digits=2)}$, Figure \ref{fig:labor.hours}, Table \ref{table:results}).
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.8\textwidth]{figs/retention.plot.pdf}
+    \caption{95\% confidence intervals and average treatment effect of being assigned to receive thanks on two-week retention of Wikipedia contributors}
+    \label{fig:retention}
+\end{figure}
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.8\textwidth]{figs/thanks.sent.plot.pdf}
+    \caption{95\% confidence intervals and average treatment effect of being assigned to receive thanks on the number of thanks sent on Wikipedia by a participant in the subsequent 6 weeks}
+    \label{fig:thanks.sent}
+\end{figure}
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.8\textwidth]{figs/labor.hours.plot.pdf}
+    \caption{Estimates and 95\% confidence intervals from being assigned to receive thanks on the difference in daily labor hours before and after receiving the intervention}
+    \label{fig:labor.hours}
+\end{figure}
+
 
 \begin{table}
 \begin{center}
@@ -116,27 +139,6 @@ labor hours \\
 \end{center}
 \end{table}
 
-% Up to three levels of subheading are permitted. Subheadings should not be numbered.
-\begin{figure}[h]
-    \centering
-    \includegraphics[width=0.8\textwidth]{figs/labor.hours.plot.pdf}
-    \caption{}
-    \label{fig:labor.hours}
-\end{figure}
-
-\begin{figure}[h]
-    \centering
-    \includegraphics[width=0.8\textwidth]{figs/retention.plot.pdf}
-    \caption{}
-    \label{fig:retention}
-\end{figure}
-
-\begin{figure}[h]
-    \centering
-    \includegraphics[width=0.8\textwidth]{figs/thanks.sent.plot.pdf}
-    \caption{}
-    \label{fig:thanks.sent}
-\end{figure}
 
 \input{tables/thankee_table1}
 

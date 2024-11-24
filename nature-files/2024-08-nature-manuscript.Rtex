@@ -1,0 +1,373 @@
+\documentclass[fleqn,10pt]{wlscirep}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{makecell}
+\usepackage{multirow}
+\usepackage{xcolor}
+
+\definecolor{warningcolor}{rgb}{0.82, 0.1, 0.26}
+
+%Path relative to the main .tex file 
+\graphicspath{ {./figs/} }
+\title{How Cascades of Private Gratitude Sustain Public Goods: Four Field Experiments with Wikipedia}
+
+\author[1,*]{J. Nathan Matias}
+\author[2]{Julia Kamin}
+\author{Reem Al-Kashif}
+\author{Max Klein}
+\author[1]{Eric Pennington}
+\affil[1]{Cornell University, Department of Communication, Ithaca, USA}
+\affil[2]{Prosocial Design Network, USA}
+
+\affil[*]{nathan.matias@cornell.edu}
+
+
+% Load paper data
+<<init, echo=FALSE>>=
+load("data/paper-data.RData")
+all.cace.df <-  cbind(factor = rownames(all.cace.df), all.cace.df)
+all.newcomer.cace.df <-  cbind(factor = rownames(all.newcomer.cace.df), all.newcomer.cace.df)
+@
+
+%\keywords{Keyword1, Keyword2, Keyword3}
+
+\begin{abstract}
+% \textcolor{red}{\textbf{This pre-print has not yet been peer reviewed. Draft produced on \today}}%\today}}
+
+
+% gratitude supports public goods, but psychologists study gratitude and expressions of appreciation as if they are individual interactions
+
+%% roots of reciprocity describes two kinds of reciprocity
+% Generalized reciprocity
+% Indirect reciprocity
+
+%% what makes this study special is that it shows the flow of thanks as a way to describe how it influences both contributions to public goods *AND* how norms of appreciation propagate to sustain them. (as hypothesized by Nowak etc)
+
+%%%%%%%%%%%%%%%%%%
+%% SIGNIFICANCE STATEMENT
+%% How can society sustain public goods that anyone can enjoy even when volunteers don't receive direct benefits? Globally, 862 million people volunteer each year, the equivalent of 61 million full-time workers. This work sustains Wikipedia, a free encyclopedia available in over 330 languages that adds $42 billion to the U.S. economy each year. One force that sustains volunteers is gratitude. In this study, scientists organized hundreds of peers to send thank-you messages to thousands of Wikipedia contributors across four languages and two continents. A single thank-you from peers increased volunteer retention by 20 percentage points on average and caused cascades of appreciation through communities. These findings advance the psychology of public goods and offer insight to anyone organizing volunteers.
+
+Theories of human cooperation see private gratitude as a consequence of resource exchange when people communicate their feelings and sense of obligation to a person who helped them. Yet in large networks of cooperation, people also contribute to common goods through upstream reciprocity that spreads to people they may not know. In these systems of indirect exchange, might expressions of gratitude move downstream, widening the spread of thanks and extending contributions to a community? We tested this hypothesis in a field experiment with Wikipedia communities in the Arabic, German, Polish, and Persian language editions. We randomly assigned \Sexpr{prettyNum(nrow(all.participants), big.mark=",")} vetted Wikipedia contributors to receive private messages of thanks from other contributors. We then observed their continued contributions and the rate of thanks they sent to others on Wikipedia. Receiving a single gratitude message caused participants to send \Sexpr{prettyNum(exp(subset(all.cace.df, model=="thanks sent" & lang == "all" & factor=="iv2")$Estimate), digits=2)} times more thanks (p<0.0001) and increased the two-week retention of participants by \Sexpr{prettyNum(subset(all.cace.df, model=="retention" & lang == "all" & factor=="iv")$Estimate*100, digits=2)} percentage points on average (p<0.0001). In \Sexpr{prettyNum(sum(treat.reciprocal.thanks.df$nonreciprocal.thanks.sent)/ (sum(treat.reciprocal.thanks.df$nonreciprocal.thanks.sent) + sum(treat.reciprocal.thanks.df$reciprocal.thanks.sent))*100, digits=3)}\%  of cases, these thanks were sent downstream to a third party. Overall, this study provides experimental evidence in the field that expressions of gratitude have a direct influence on the diffusion of appreciation and also function to maintain participation in large-scale cooperation.
+
+\end{abstract}
+\begin{document}
+
+\flushbottom
+\maketitle
+
+\thispagestyle{empty}
+
+\section*{Introduction}
+How do private expressions of gratitude spread through large social groups, and what role do those expressions play in the formation and maintenance of the work that maintains those groups? Questions about the structure and function of gratitude 
+%expressions 
+are part of an enduring scientific discussion about the origin and maintenance of human cooperation. \cite{ smith_theory_1777, simmel_faithfulness_1996,mccullough_is_2001} Pragmatically, this science of cooperation explains the existence of large-scale public goods which are often sustained by volunteers, who contribute the equivalent of 61 million full-time workers annually. \cite{volunteers_what_2021} For example, tens of millions of volunteers \footnote{https://en.wikipedia.org/wiki/Wikipedia:Wikipedians} have created and sustains Wikipedia, a free resource of global knowledge \cite{benkler_wealth_2006, reagle_wikipedia_2020, jemielniak_common_2020} that has become a basic building block for education, \cite{okoli_wikipedia_2014} elections, \cite{salem_wikipedia_2023} financial markets,\cite{hinnosaar_wikipedia_2023} and artificial intelligence \cite{baack_critical_2024}  and contributes \$42 billion dollars to the U.S. economy alone per year. \cite{brynjolfsson_how_2019} By investigating the role of gratitude expressions in large-scale cooperation, scientists can explain how volunteer-supported public goods come into being and also inform their effective maintenance.
+
+Social scientists who study private, interpersonal expressions of gratitude describe them
+%akin to flashes of lightning---
+as both a cause and an effect of reciprocity, which is a basic building block of the kind of cooperation that sustains such public goods. In one view, expressions of gratitude are a dramatic, visible response to a past exchange between people, a behavioral indication that that a consequential exchange has already occurred.\cite{mccullough_is_2001} In this psychological explanation, feelings and expressions of gratitude function as a ``moral barometer'' of exchange and obligation, flowing backward along networks of exchange after value has been given and received.\cite{mccullough_is_2001} People feel and express thanks to acknowledge their indebtedness toward another person, causing the bonds of reciprocity between them to grow. \cite{bartlett_gratitude_2006} 
+%Yet like a flash of lightning, 
+Gratitude expressions strengthen these bonds by causing givers to help even further. \cite{riskin_expressions_2019, kong_because_2019} %\cite{grant_little_2010, riskin_expressions_2019, kong_because_2019} \footnote{While (\cite{grant_little_2010}) has not been retracted, one of its authors is investigating potential data fabrication. If this article is accepted, we would welcome guidance from the editor on citation practices. More detail at \url{https://manycoauthors.org/gino/123}} 
+
+Beyond pairs of reciprocity, one enduring question for the science of gratitude has been how it shapes and responds to behavior within groups. In indirect and generalized reciprocity, people contribute within a group with the expectation that they will receive benefits from others in the group. In these structures, public gratitude supports cooperation through reputation, increasing the chance that the receiver of gratitude will gain benefits from third parties. These increases in reputation also cause gratitude-receivers to make further contributions to the group. \cite{gallus_fostering_2016, simpson_roots_2018} Yet scientists have observed patterns of gratitude that are not as easily explained by reputation or reciprocity. In one large-scale observational study in the workplace, researchers found evidence that asymmetric structures were twice as common as reciprocity between pairs.\cite{spiro_networks_2016} 
+
+Why do people thank others outside of reciprocity, and what role do these expressions play in cooperation? In the chain theory of indirect and generalized reciprocity, the influence of giving on gratitude leaves a trail of thanks that follows on from the flows of other beneficial acts.\cite{nowak_upstream_2007} In this view, people who receive benefits feel good about them and express gratitude to acknowledge their indebtedness to the giver. When grateful-feelers also help others, the chain of reciprocity spreads through the group, followed by an after-image of gratitude expressions. \cite{simpson_roots_2018} A parallel possibility is that private expressions of gratitude also directly cause cascades of further appreciation, potentially by influencing social norms, people's beliefs about what others expect. \cite{tankard2016norm} In this hypothesized forward cascade, the experience of receiving thanks itself makes people more likely to express appreciation in forward-facing cascades, then expressions of gratitude might be a partial contributor to the formation and maintenance of large-scale cooperation networks, not just a barometer of other forces that sustain them.
+
+
+% \begin{center}
+% \begin{tabular}{ |c|c|c| } 
+% \hline
+% & Giver of benefits & Receiver of benefits \\
+% & and receiver of thanks & and giver of thanks \\
+%  \hline
+%  direct reciprocity & gives more to receiver & gives back to giver \\ 
+%  indirect reciprocity & gives more to others due to increased reputation &  \\ 
+%  generalized reciprocity &  & gives more to others due to feeling of gratitude \\ 
+%  gino/grant & gives more to others because gratitude increases feeling of self efficacy and social value & \\
+%  \hline
+% \end{tabular}
+% \end{center}
+
+% anticipating future rewards based on their growing reputation (indirect).\cite{simpson_roots_2018} Field experiments have found that receiving private and public expressions of appreciation can influence people to contribute more to voluntary efforts,\cite{grant_little_2010} even when participants are pseudonymous.\cite{gallus_fostering_2016}
+
+% Social scientists use theories of exchange to explain cascades in expressions of gratitude. In an observational study, researchers found evidence that asymmetric structures were twice as common as reciprocity between pairs.\cite{spiro_networks_2016} One explanation for these cascades is that they reveal the way exchange flows through the network. 
+
+% An alternative explanation for appreciation cascades is that thanking someone also influences them to express gratitude to others as well, independently from the benefits received. In this forward-moving, upstream reciprocity of saying thanks, people who receive appreciation go on to express thanks to others, who may then thank others. If so, then expressions of gratitude could play a direct role in the formation and maintenance of large scale cooperation networks.
+
+These questions about the function of gratitude expressions have pragmatic implications for volunteer-supported public goods. One notable example of these public goods is Wikipedia, a multi-lingual encyclopedia available in over three hundred languages,\footnote{\url{https://meta.wikimedia.org/wiki/List_of_Wikipedias}, accessed July 1, 2020} millions of Wikipedia contributors have coordinated to create the world's most consulted information source.\footnote{\url{https://www.alexa.com/siteinfo/wikipedia.org}, Accessed July 1, 2020} Maintaining this free, common resources requires generalized reciprocity from volunteers who pay forward the knowledge they have received; Wikipedia also relies on indirect reciprocity and the hope that others' knowledge will provide them with value in turn. \cite{benkler_wealth_2006} 
+%Because contributing to Wikipedia is skilled work with a high standard of quality, many editors leave soon after their first contribution, especially when their inexperienced edits are removed to maintain the quality of the encyclopedia.\cite{halfaker_rise_2013} 
+If receiving private thanks influences how people contribute to public goods and how much they express downstream gratitude to others, encouraging appreciation on Wikipedia could help sustain and grow this valuable knowledge resource.
+
+Wikipedia is a fruitful context for field experiments on the diffusion of gratitude expressions. In the social sciences, field experiments are used to validate theories in naturalistic settings and observe unexplained causal phenomena for further theory-building.\cite{paluck_field_2014, cialdini_fullcycle_1980} As a cooperative endeavor sustained through generalized exchange, Wikipedia provides a naturalistic setting in which upstream, private appreciation might occur. Finally, since the Wikipedia software hosts hundreds of distinct language encyclopedias, scientists can conduct parallel replications of a research question across multiple cultures and languages.\cite{hill_studying_2017} 
+
+Wikipedia also includes features for sending and receiving private appreciation. When someone receives a ``Thanks'' on Wikipedia, they receive a private alert on the Wikipedia website (Figure \ref{fig:thank.notification}), and an email (by default) from the sender. The message names the account that sent the expression of gratitude and identifies the specific contribution that merited thanks. Compared to public recognition on Wikipedia,\cite{gallus_fostering_2016} these messages of appreciation are private and are only easily visible by the recipient,\cite{matias_kittens_2019} ruling out reputation as a mechanism for their effects. The software behind Wikipedia also records the sender, receiver, time, and object of every expression of thanks sent between contributors. \cite{goel_thanks_2019} 
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.8\textwidth]{figs/notification-screenshot.png}
+    \caption{Notification received by participants who received thanks}
+    \label{fig:thank.notification}
+\end{figure}
+
+In a large-scale field experiment on Wikipedia, we tested the hypothesis that receiving thanks influences how people thank others and also influences how they contribute to generalized reciprocity. We designed this study with liaisons from the Arabic, German, Persian, and Polish language communities, which collectively have over twenty-seven thousand monthly active contributors (Table \ref{table:participants}). Working with humans and machine learning models to identify newcomers and experienced editors %within languages 
+whose contributors merited appreciation, we randomly assigned over fifteen thousand participants to be thanked by one of 313 volunteers or to be omitted from the thanking campaign. Over the next six weeks, we observed how long participants continued to contribute to Wikipedia, the difference in daily labor hours after assignment, and the rate at which they sent expressions of gratitude to others, and the network structure of those downstream thanks. 
+
+\section*{Results}
+We evaluated the complier average causal effect (CACE) of receiving thanks among $\Sexpr{prettyNum(nrow(participants), big.mark=",")}$ participants from August 2, 2019 through March 24, 2020. We pre-registered our analysis plan before data collection, including plans for multiple comparison adjustments.\cite{holm_simple_1979} \footnote{\url{https://osf.io/c67rg/}} Among active accounts, 55\% of newcomers and 46\% of experienced accounts met our criteria for contributions that merited thanks; they were consequently included in the study (Table \ref{table:participants}). Among the $\Sexpr{prettyNum(nrow(subset(participants, TREAT==1)), big.mark=",")}$ participants in the treatment group, volunteers chose to thank 31\% of newcomers and 43\% of experienced accounts(Table \ref{table:participants}). We consider thanks-recipients as compliers in the CACE estimate.
+
+Across all four Wikipedia communities, receiving thanks caused participants to thank others at $\Sexpr{prettyNum(exp(subset(all.cace.df, model=="thanks sent" & lang == "all" & factor=="iv2")$Estimate), digits=2)}$ times the rate of those in the control group (p<0.0001, Figure \ref{fig:combined}B, Table \ref{table:results}) on average. Of the $\Sexpr{prettyNum(sum(treat.reciprocal.thanks.df$nonreciprocal.thanks.sent) + sum(treat.reciprocal.thanks.df$reciprocal.thanks.sent), big.mark=",")}$ thanks sent by participants in the treatment group, \Sexpr{prettyNum(sum(treat.reciprocal.thanks.df$nonreciprocal.thanks.sent)/ (sum(treat.reciprocal.thanks.df$nonreciprocal.thanks.sent) + sum(treat.reciprocal.thanks.df$reciprocal.thanks.sent))*100, digits=3)}\% were sent to someone other than the volunteer who thanked them. Only \Sexpr{prettyNum(100-sum(treat.reciprocal.thanks.df$nonreciprocal.thanks.sent)/ (sum(treat.reciprocal.thanks.df$nonreciprocal.thanks.sent) + sum(treat.reciprocal.thanks.df$reciprocal.thanks.sent))*100, digits=1)}\% of thanks followed a pattern of reciprocity.
+
+Receiving thanks also increased the two-week retention of participants by $\Sexpr{prettyNum(subset(all.cace.df, model=="retention" & lang == "all" & factor=="iv")$Estimate*100, digits=2)}$ percentage points on average (p<0.001, Figure \ref{fig:combined}A, Table \ref{table:results}). Our manipulation check found that among  $\Sexpr{prettyNum(subset(all.lang.results, model=="manipulation check" & lang=="all")$n.size, big.mark=",")}$ survey-takers, being assigned to receive thanks increased the chance of someone remembering seven weeks later that they had received thanks (p<0.0001). Among the $\Sexpr{prettyNum(nrow(subset(participants, newcomer)), big.mark=",")}$ newcomers we included as participants in Arabic, German, and Polish Wikipedias,\footnote{We did not include Persian language newcomers in the study.} we did not find an effect from receiving thanks on the difference in daily labor hours over six weeks (p=$\Sexpr{prettyNum(subset(all.newcomer.cace.df, model=="labor hours" & subgroup=="newcomer" & lang == "all" & factor=="iv1")$pvalue, digits=2)}$, Figure \ref{fig:combined}, Table \ref{table:results}). These complier-average causal effects, adjusted for multiple comparisons alongside the pre-registered analyses, were all consistent with the results of pre-registered intent-to-treat esimates (see Supplementary Information). 
+
+% Across all four Wikipedia communities, being assigned to receive thanks caused participants to thank others at $\Sexpr{prettyNum(exp(subset(all.lang.results, model=="thanks sent" & lang == "all")$Estimate), digits=2)}$ times the rate of those in the control group (p=$\Sexpr{prettyNum(subset(all.lang.results, model=="thanks sent" & lang == "all")$pvalue, digits=1)}$, Figure \ref{fig:combined}B, Table \ref{table:results}) on average. Being assigned to receive thanks also increased the two-week retention of participants by $\Sexpr{prettyNum(subset(all.lang.results, model=="retention" & lang == "all")$Estimate*100, digits=1)}$ percentage points on average (p<0.001, Figure \ref{fig:combined}A, Table \ref{table:results}). Our manipulation check found that among  $\Sexpr{prettyNum(subset(all.lang.results, model=="manipulation check" & lang=="all")$n.size, big.mark=",")}$ survey-takers, being assigned to receive thanks increased the chance of someone remembering seven weeks later that they had received thanks (p<0.0001). Among the $\Sexpr{prettyNum(nrow(subset(participants, newcomer)), big.mark=",")}$ newcomers we included as participants in Arabic, German, and Polish Wikipedias,\footnote{We did not include Persian language newcomers in the study.} we did not find an effect from receiving thanks on the difference in daily labor hours over six weeks (p=$\Sexpr{prettyNum(subset(all.lang.results, model=="labor hours" & lang == "all")$pvalue, digits=2)}$, Figure \ref{fig:combined}, Table \ref{table:results}).
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.8\textwidth]{figs/combined.figure.iv.pdf}
+    \caption{95\% confidence intervals and complier average treatment effects for (A) two-week retention of Wikipedia contributors, (B) thanks sent to others (model coefficients), and (C) the difference in daily labor hours before and after.}
+    \label{fig:combined}
+\end{figure}
+
+% \begin{figure}[h]
+%     \centering
+%     \includegraphics[width=0.8\textwidth]{figs/thanks.sent.plot.pdf}
+%     \caption{95\% confidence intervals and average treatment effect of being assigned to receive thanks on the number of thanks sent on Wikipedia by a participant in the subsequent 6 weeks}
+%     \label{fig:thanks.sent}
+% \end{figure}
+
+% \begin{figure}[h]
+%     \centering
+%     \includegraphics[width=0.8\textwidth]{figs/labor.hours.plot.pdf}
+%     \caption{Estimates and 95\% confidence intervals from being assigned to receive thanks on the difference in daily labor hours before and after receiving the intervention}
+%     \label{fig:labor.hours}
+% \end{figure}
+
+
+\begin{table}
+\begin{center}
+\begin{tabular}{l c c c c c c}
+\hline
+Outcome & Estimator & Subgroup & N & ATE & Standard Error & P (adjusted) \\
+\hline
+Thanks sent & two-stage negative binomial & all &
+  $\Sexpr{prettyNum(subset(all.lang.results, model=="thanks sent" & lang == "all" )$n.size, big.mark=",")}$ &
+  $\Sexpr{prettyNum(exp(subset(all.cace.df, model=="thanks sent" & lang == "all" & factor=="iv2")$Estimate), digits=2)}$ & 
+  $\Sexpr{prettyNum(subset(all.cace.df, model=="thanks sent" & lang == "all" & factor=="iv2")$Std..Error, digits=2)}$ &
+  $\Sexpr{prettyNum(subset(all.cace.df, model=="thanks sent" & lang == "all" & factor=="iv2")$pvalue, digits=2)}$ \\
+  
+Two week retention & two-stage OLS & all & 
+  $\Sexpr{prettyNum(subset(all.lang.results, model=="retention" & lang == "all")$n.size, big.mark=",")}$ &
+  $\Sexpr{prettyNum(subset(all.cace.df, model=="retention" & lang == "all" & factor=="iv")$Estimate, digits=2)}$ & 
+  $\Sexpr{prettyNum(subset(all.cace.df, model=="retention" & lang == "all" & factor=="iv")$Std..Error, digits=1)}$ &
+  $\Sexpr{prettyNum(subset(all.cace.df, model=="retention" & lang == "all" & factor=="iv")$pvalue, digits=2)}$ \\
+  
+Difference in daily & two-stage OLS & new & 
+  $\Sexpr{prettyNum(subset(all.newcomer.cace.df, model=="labor hours" & subgroup=="newcomer" & lang == "all" & factor=="iv1")$n.size, big.mark=",")}$ &
+  $\Sexpr{prettyNum(subset(all.newcomer.cace.df, model=="labor hours" & subgroup=="newcomer" & lang == "all" & factor=="iv1")$Estimate, digits=1)}$ & 
+  $\Sexpr{prettyNum(subset(all.newcomer.cace.df, model=="labor hours" & subgroup=="newcomer" & lang == "all" & factor=="iv1")$Std..Error, digits=1)}$ & 
+  $\Sexpr{prettyNum(subset(all.newcomer.cace.df, model=="labor hours" & subgroup=="newcomer" & lang == "all" & factor=="iv1")$pvalue, digits=2)}$ \\
+  labor hours \\
+ Manipulation check & two-stage OLS & all &
+  $\Sexpr{prettyNum(subset(all.lang.results, model=="manipulation check" & lang=="all")$n.size, big.mark=",")}$ &
+  $\Sexpr{prettyNum(subset(all.cace.df, model=="manipulation check" & lang=="all" & factor=="iv3")$Estimate, digits=2)}$ & 
+  $\Sexpr{prettyNum(subset(all.cace.df, model=="manipulation check" & lang=="all" & factor=="iv3")$Std..Error, digits=2)}$ &
+  $\Sexpr{prettyNum(subset(all.cace.df, model=="manipulation check" & lang=="all" & factor=="iv3")$pvalue, digits=2)}$\\
+
+\hline
+\end{tabular}
+\caption{Estimates of complier average treatment effects among Wikipedia participants. CACE estimates were conducted with two-stage regression models.}
+\label{table:results}
+\end{center}
+\end{table}
+
+
+\input{tables/thankee_table1}
+
+\section*{Discussion}
+In this study, we found experimental evidence across multiple languages for the direct diffusion of private gratitude expressions through cooperative networks---a finding that helps explain the observational record.\cite{spiro_networks_2016} While thanks can be prompted by receiving something of value from another person, it can also be prompted by receiving thanks itself. Wikipedia contributors who receive expressions of gratitude go on to thank others at a much higher rate on average. As these cascades of appreciation spread, they also influence people to contribute further to public goods.
+
+This experiment is unable to reveal the psychological mechanisms that explain why individuals go on to send expressions of gratitude to others. Receiving thanks could cause people to update their beliefs about normative practices in the communities. Receiving a message of thanks might also increase a person's self-efficacy, leading them to be more confident about their ability to evaluate and appreciate other people's contributions. The decision to thank others might itself be a form of generalized reciprocity, with senders wishing to ``pay forward'' the emotional benefits of receiving appreciation from others. Further field and lab research could explore those mechanisms with greater fidelity. \cite{paluck_field_2014}
+
+We also found that people who receive a single expression of appreciation continue to volunteer for a longer period of time, even if they do not measurably increase or decrease the amount of time they allocate to Wikipedia. This null finding may result from an effect that is inconsequentially small, from the high variance in labor hours between participants, or from measurement error in the method for inferring time contributed. Pragmatically, these findings could help Wikipedia language communities retain thousands of contributors a year and further spread the practice of appreciation.
+
+\section*{Materials and Methods}
+We designed a field experiment to test the influence of receiving private expressions of gratitude on pro-social behavior among Wikipedia contributors in Arabic, German, Persian, and Polish language Wikipedias. We test whether receiving thanks could cause volunteer contributors of different experience levels to increase participation and send appreciation to others in turn. Each language Wikipedia consented to participate, and participants were debriefed after the study, in a protocol approved by the Princeton University and Cornell University Institutional Review boards.  Full materials are available on the Open Science Framework.\footnote{https://osf.io/j64vs/}
+
+Within language Wikipedia groups, we used machine learning and human-coded criteria to identify Wikipedia editors whose contributions were eligible for appreciation. Participants were eligible for the study if they made at least four eligible contributions to Arabic, German, or Polish Wikipedia in the previous 90 days (540 days for Persian). Edits were eligible if they were made to pages other than the account's personal profile, were not discussion comments, and met language-specific criteria. In German, edits were eligible if they were a ``flagged revision'', an edit that has been marked useful, by a seperate expert Wikipedian. In Arabic, Persian, and Polish Wikipedias, we used the ORES machine learning system, which had been trained by community members to identify good-faith and non-damaging edits. \cite{halfaker_ores_2016} Some communities limited their efforts to newcomers or experienced accounts only, to ensure their volunteers could thank a sufficient number of participants. Among active accounts, 55\% of newcomers and 46\% of experienced accounts met the criteria and were included (Table \ref{table:participants}). 
+
+Participants were stratified by experience into the groups, from newcomers who had joined in the previous 90 days up to editors with multiple years of experience. Within these groups and within languages, we randomly assigned participants to receive a thanks or not within matched pairs, based on their previous expressions of thanks and the number of labor hours they contributed over the previous 84 days. 
+
+We created a software application to encourage experienced Wikipedia volunteers to send a single message of appreciation to participants in the treatment group, thanking them for a specific contribution (Figure \ref{fig:app}). When an experienced Wikipedian using the software chose to send thanks, a message would be sent immediately to the recipient \textit{on behalf} of the sender through the Wikipedia interface (Figure \ref{fig:thank.notification}). The message would also arrive via email if the recipient allowed email notifications (the default on Wikipedia).
+
+From August 2, 2019 through February 11, 2020, a total of 313 volunteers reviewed a queue of eligible edits by participants in the treatment group. To meet our sample size goals for newcomers, we conducted the study in a series of 84-day waves, including in each wave accounts created in the period since the previous wave. After removing 
+\Sexpr{nrow(subset(all.participants, thanks.not.received.user.deleted | received.multiple.thanks))} 
+matched pairs associated with software errors and opt-out requests, the study included a total of $\Sexpr{prettyNum(nrow(participants), big.mark=",")}$ participants. 
+
+
+% number of removed randomization blocks computed in the Jupyter notebook with the line  length(unique(c(blocks.to.omit.multiple.thanks,blocks.to.omit.deleted)))
+
+
+We then observed participant behavior on Wikipedia over the next six weeks after they (or their matched pair) received thanks. In the case of pairs that did not receive thanks, we observed the six weeks after random assignment. Using public data from the Wikipedia software system, we created measures of two-week retention, the difference in labor hours they contributed, and the number of thanks they sent to others during the observation period.  
+After data collection was complete, we debriefed all participants in the study and granted them the opportunity to opt out of inclusion in the data analysis if they wished.
+
+The number of thanks sent over six weeks is a count variable drawn from Wikipedia's public records for a given participant. We estimate the average treatment effect on the incidence rate of thanks sent using a negative binomial regression model. The coefficient of this model can be transformed into an incidence rate ratio, the multiplicative effect on the rate of thanks sent. \cite{long_regression_2014} 
+
+Two-week retention is a binary variable that records whether someone was an active contributor to Wikipedia in the second week of the observation period. In our measure, which uses a sliding observation window, someone has stopped contributing by the second week if they take no actions in the five weeks after the second week begins. We record two-week retention using this sliding window because some contributors to Wikipedia only make edits every few weeks. Without such a sliding window, the outcome variable would under-count contributors who make edits less frequently than every week. 
+
+Labor hours are a continuous, aggregate estimate of the time spent contributing to Wikipedia across edit sessions. These sessions are inferred from contiguous sequences of contributions near to each other in time, with a minimum session time of 430 seconds.\cite{geiger_using_2013} To calculate the difference in labor hours, we counted the labor hours per day in the six weeks before receiving thanks and subtracted it from the daily labor hours in the six weeks after.
+
+As a manipulation check, we also surveyed participants after six weeks to ask if they remembered receiving thanks, with a response rate of $\Sexpr{prettyNum(nrow(subset(participants,complier))/ nrow(participants)*100, digits=1)}$\% that was balanced between treatment and control. We pre-registered hypotheses based on other survey responses but withdrew those questions upon observing the low response rate.
+
+This study pre-registered an intent to treat estimate using a difference in means estimator for retention, labor hours, and the manipulation check. \cite{blair_package_2018} To estimate the effect on the number of thanks sent, we pre-registered an intent-to-treat negative binomial estimator that adjusted for language and newcomer status. These intent-to-treat estimates permit organizations to evaluate the pragmatic outcome of organizing a Wikipedia-wide intervention, accounting for selection by thankers.\footnote{\url{https://osf.io/c67rg/}} (SI Table \ref{table:preregresults}).
+
+To estimate the effect of receiving a thanks, we estimated the Complier Average Causal Effect (CACE) among the treated. The pre-registered analysis estimated the average treatment effect on two-week retention, the difference in labor hours, and the manipulation check with a difference in means estimator that accounted for randomization blocks.\cite{blair_package_2018}  To estimate the CACE, we conducted a two stage least squares regression. \cite{gerber_field_2012} We defined compliers as participants that received one thanks message from volunteers through our system. This measure excluded participants that were skipped by volunteers, who failed to receive thanks due to a software error, who received more than one thanks due to a software error, and accounts that had been deleted by the time thanks were sent. In the first stage, we used a linear OLS model to estimate the compliance probability of compliance based on assignment, adjusting for language to account for different intercepts between languages. We then used that fitted estimate as the independent variable for univariate models that estimated the CACE, adjusted for multiple comparisons using the Holm method and including pre-registered analyses. \cite{holm_simple_1979} 
+
+
+\bibliography{references}
+
+\section*{Acknowledgements}
+
+Redacted for review. 
+
+%At CAT Lab, communities are co-partners in our research. We are deeply grateful to the many people in the Wikipedia community who advised and supported this work. We are especially indebted to our liaisons from partnering Wikipedias – Reem Al-Kashif, Christine Domgörgen,  Mohamed ElGohary, Maria Heuschkel, Amir Ladsgroup, Wojciech Pędzich, Mohsen Salek, and Natalia Szafran-Kozakowska. These liaisons worked closely with us to design the study and guide us from start to finish. This work is a product of their endless wisdom, patience and dedication. We also appreciate the 313 volunteers who generously used our app to send thanks as part of our study. Many also helped us test and fix software bugs to improve the quality of this study.
+
+%This research was funded by a grant from the Templeton World Charity Foundation.
+
+\section*{Author contributions statement}
+Redacted for review.
+
+%J.N.M., R.A., J.K., M.K. designed the experiment. J.N.M., R.A., J.K., M.K., E.P. conducted the experiment. J.N.M. J.K., M.K. analyzed the results. J.N.M. J.K., M.K. reviewed the manuscript.
+
+% \section*{Additional information}
+
+% To include, in this order: \textbf{Accession codes} (where applicable); \textbf{Competing interests} (mandatory statement). 
+
+%The corresponding author is responsible for submitting a \href{http://www.nature.com/srep/policies/index.html#competing}{competing interests statement} on behalf of all authors of the paper. This statement must be included in the submitted article file.
+
+% \begin{figure}[ht]
+% \centering
+% \includegraphics[width=\linewidth]{stream}
+% \caption{Legend (350 words max). Example legend text.}
+% \label{fig:stream}
+% \end{figure}
+
+
+% Figures and tables can be referenced in LaTeX using the ref command, e.g. Figure \ref{fig:stream} and Table \ref{tab:example}.
+
+\section*{Supplementary Information}
+
+\subsection*{Materials and Methods}
+
+\subsubsection*{Sampling Criteria}
+We identified potential thanks recipients through a two-stage process that started with automated systems to create a list of eligible candidates who were randomized into the study. Treatment group candidates were then shown to thankers, who could choose whether to send appreciation to a given study participant. Inclusion criteria are described in detail in the pre-analysis plan. \footnote{\url{https://osf.io/c67rg}}
+
+Based on a power analysis estimating an 80\% chance of observing a minimal, statistically-significant effect on the dependent variables, we set the goal of including 1,750 newcomers in Arabic, 3,000 newcomers in German, and 800 newcomers in Polish language Wikipedia. Among experienced accounts, we estimated needing 2,400 experienced accounts in the Polish language Wikipedia and 2,400 experienced accounts in the Persian language Wikipedia. 
+
+%% if they ask for it, we can find it here: https://github.com/citizensandtech/CivilServant-Wikipedia-Analysis/blob/261513d66266b0a149bf79c165a1f0744d9829b8/power-analysis/thankee-experiment-2019/thanks-recipient-experiment-power-analysis-R.ipynb
+
+Sampling for this study was conducted on an ongoing basis throughout the study period. Accounts were eligible for inclusion in the study if they were considered active, having contributed to Wikipedia in the previous 90 days, and if they had made at least four high quality contributions to a given language Wikipedia in the previous 540 days. These criteria excluded user-page edits, which are a person's contributions to their own profile on Wikipedia. For example, if three an account's four contributions were to their own profile in the previous 540 days, they would not be included in the study.
+
+For Persian, Polish, and Arabic language Wikipedias, our inclusion criteria included judgments of ``good faith'' edits by the ORES system, a machine learning model trained by Wikipedia community members to classify contributions to Wikipedia. At the time of this study, this ``algorithmic scoring service,'' consisted of 102 machine learning classifiers operating in 41 languages that had been trained by volunteers in each language group. In this study, we made use of a ``good faith'' edit classifier that could review an individual's contribution to Wikipedia and provide a probability on a scale of 0 to 1 that the edit would be judged as good faith by human reviewers. Evaluations of these models by the Wikimedia Foundation show that they exhibited a precision of at least 0.98 and recall of at least 0.99 across all models (Table \ref{table:mlresults}).
+
+
+\begin{table}
+\begin{center}
+\begin{tabular}{l c c c c}
+\textbf{Language} & \textbf{Model} &  \textbf{Test Data N} & \textbf{Precision} & \textbf{Recall} \\
+\hline
+DE\footnote{\url{https://meta.wikimedia.org/wiki/Machine_learning_models/Production/German_Wikipedia_goodfaith_edit}} & Good Faith & 18150 & 0.989 & 0.997 \\
+PL\footnote{\url{https://meta.wikimedia.org/wiki/Machine_learning_models/Production/Polish_Wikipedia_goodfaith_edit}} & Good Faith & 4772 & 0.987 & 0.998 \\
+AR\footnote{\url{https://meta.wikimedia.org/wiki/Machine_learning_models/Production/Arabic_Wikipedia_goodfaith_edit}} & Good Faith & 18208 & 0.994 & 0.999 \\
+\end{tabular}
+\caption{Performance of machine learning models used in participant inclusion criteria, drawn from model documentation published by the Wikimedia Foundation}
+\label{table:mlresults}
+\end{center}
+\end{table}
+
+Participants in the study were labeled as newcomers if they had created the account within the previous 90 days and were labeled as experienced if they had created the account earlier than 90 days before.
+
+
+\subsubsection*{Recruiting Thankers}
+
+%% source: "Thanker Recruitment Plan"
+We recruited a total of 313 thanks senders 
+%(Table \ref{table:thankers})
+through a series of banner ads and surveys that were placed at the top of German, Polish, Arabic, and Persian language Wikipedias starting June 9, 2019. These banners were visible to logged-in Wikipedia accounts that were browsing the site and which met the inclusion criteria. German and Polish Wikipedia accounts were recruited if they had been granted permission by the community to ``flag revisions,'' giving them the power to choose which version of an article was displayed to readers by default. Persian Wikipedia accounts were included if they were registered for at least a year and had contributed at least 500 edits. Arabic Wikipedia contributors were shown the banner if the community had granted them ``autoreview'' permissions, indicating that they have earned enough trust that their contributions would not be flagged for review by other editors.
+
+
+% \begin{table}
+% \begin{center}
+% \begin{tabular}{l c c c c c}
+% \textbf{Language} & \textbf{Signed} & \textbf{Logged} &  \textbf{Median Account} & \textbf{Median Accounts} & \textbf{Median Accounts} \\
+%  & \textbf{Up} & \textbf{In} &  \textbf{Age (Months)} & \textbf{Reviewed} & \textbf{Thanked} \\
+% \hline
+% DE & N & N & Age & N & N \\
+% PL & N & N & Age & N & N \\
+% AR & N & N & Age & N & N \\
+% \end{tabular}
+% \caption{Participation by volunteers in sending thanks}
+% \label{table:thankers}
+% \end{center}
+% \end{table}
+
+\subsubsection*{Selecting and Allocating Thanks}
+
+Thankers participated by logging into a software interface for sending thanks. This software presented them with accounts to potentially thank, showing them the contributions that made the account eligible to be considered for thanks. The software showed the before-after view of four contributions made by the account and presented thankers with the option to send thanks for one of these contributions or pass over the account. A full description of the user interface is included in the materials and methods repository.\footnote{\url{https://osf.io/j64vs}}
+
+% Overall, volunteers thanked 35\% out of the 7,779 accounts we suggested.
+% Overall, a total of (X) volunteers thanked (X)\% out of the (X) accounts we suggested. Most of the thanks were sent by volunteers in small numbers, with (X) sent on average. A group of (X) volunteers completed the remaining reviews and thanks to support the study to achieve the sample size needed to achieve the necessary statistical power. 
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.9\textwidth]{figs/cs-app-de-2-options.png}
+    \caption{Volunteers used this software application to choose which contributions to thank. The application showed users the username of the potential thanks recipient followed by an edit to Wikipedia that machine learning models identified as potentially meriting thanks, in context. Edits to Wikipedia were displayed to users as highlighted revisions in the text of articles. Volunteers could choose to send thanks or skip to the next case.}
+    \label{fig:app}
+\end{figure}
+
+\subsubsection*{Receiving Thanks}
+Many participants who were sent a thanks message received an email from the Wikipedia platform notifying them that they had been thanked. Any participants who had previously navigated through the Wikipedia platform's settings to manually disable email notifications would have received a notification of the thanks message through a bright red indicator at the top of the page when logged in to Wikipedia (Figure \ref{fig:thank.notification}).
+
+\subsubsection*{GDPR Compliance}
+All participants were sent a debriefing message after the study concluded. Four people requested their data be removed from the study, a request we complied with.
+
+
+
+\begin{table}
+\begin{center}
+\begin{tabular}{l c c c c c c}
+\hline
+Outcome & Estimator & Subgroup & N & ATE & Standard Error & P (adjusted) \\
+\hline
+Thanks sent & negative binomial & all &
+  $\Sexpr{prettyNum(subset(all.lang.results, model=="thanks sent" & lang == "all")$n.size, big.mark=",")}$ &
+  $\Sexpr{prettyNum(subset(all.lang.results, model=="thanks sent" & lang == "all")$Estimate, digits=2)}$ & 
+  $\Sexpr{prettyNum(subset(all.lang.results, model=="thanks sent" & lang == "all")$Std..Error, digits=2)}$ &
+  $\Sexpr{prettyNum(subset(all.lang.results, model=="thanks sent" & lang == "all")$pvalue, digits=2)}$ \\
+  
+Two week retention & difference in means\cite{blair_package_2018} & all & 
+  $\Sexpr{prettyNum(subset(all.lang.results, model=="retention" & lang == "all")$n.size, big.mark=",")}$ &
+  $\Sexpr{prettyNum(subset(all.lang.results, model=="retention" & lang == "all")$Estimate, digits=2)}$ & 
+  $\Sexpr{prettyNum(subset(all.lang.results, model=="retention" & lang == "all")$Std..Error, digits=1)}$ &
+  $\Sexpr{prettyNum(subset(all.lang.results, model=="retention" & lang == "all")$pvalue, digits=2)}$ \\
+  
+Difference in daily & difference in means\cite{blair_package_2018} & new & 
+  $\Sexpr{prettyNum(subset(all.lang.results, model=="labor hours" & subgroup=="newcomer" & lang == "all")$n.size, big.mark=",")}$ &
+  $\Sexpr{prettyNum(subset(all.lang.results, model=="labor hours" & subgroup=="newcomer" & lang == "all")$Estimate, digits=1)}$ & 
+  $\Sexpr{prettyNum(subset(all.lang.results, model=="labor hours" & subgroup=="newcomer" & lang == "all")$Std..Error, digits=1)}$ & 
+  $\Sexpr{prettyNum(subset(all.lang.results, model=="labor hours" & subgroup=="newcomer" & lang == "all")$pvalue, digits=2)}$ \\
+  labor hours \\
+Manipulation check & difference in means\cite{blair_package_2018} & all &
+  $\Sexpr{prettyNum(subset(all.lang.results, model=="manipulation check" & lang=="all")$n.size, big.mark=",")}$ &
+  $\Sexpr{prettyNum(subset(all.lang.results, model=="manipulation check" & lang=="all")$Estimate, digits=2)}$ & 
+  $\Sexpr{prettyNum(subset(all.lang.results, model=="manipulation check" & lang=="all")$Std..Error, digits=2)}$ &
+  $\Sexpr{prettyNum(subset(all.lang.results, model=="manipulation check" & lang=="all")$pvalue, digits=2)}$\\
+
+\hline
+\end{tabular}
+\caption{Pre-registered intent-to-treat estimates of average treatment effects among Wikipedia participants}
+\label{table:preregresults}
+\end{center}
+\end{table}
+
+
+
+\end{document}

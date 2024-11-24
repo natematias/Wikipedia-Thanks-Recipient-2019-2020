@@ -1,0 +1,120 @@
+\documentclass[9pt,twoside,lineno]{pnas-new}
+% Use the lineno option to display guide line numbers if required.
+
+\templatetype{pnassupportinginfo}
+
+\title{How Cascades of Private Gratitude Sustain Public Goods: Four Field Experiments with Wikipedia}
+
+\author{J. Nathan Matias, Julia Kamin, Reem Al-Kashif, Max Klein, Eric Pennington}
+
+\correspondingauthor{\textsuperscript{2}To whom correspondence should be addressed. E-mail: nathan.matias@cornell.edu}
+
+<<init, echo=FALSE>>=
+load("data/paper-data.RData")
+all.cace.df <-  cbind(factor = rownames(all.cace.df), all.cace.df)
+all.newcomer.cace.df <-  cbind(factor = rownames(all.newcomer.cace.df), all.newcomer.cace.df)
+@
+
+
+\begin{document}
+
+%% Comment out or remove this line before generating final copy for submission; this will also remove the warning re: "Consecutive odd pages found".
+% \instructionspage  
+
+\maketitle
+
+%% Adds the main heading for the SI text. Comment out this line if you do not have any supporting information text.
+% \SItext
+
+
+% \subsection*{Subhead}
+% Type or paste text here. This should be additional explanatory text such as an extended technical description of results, full details of mathematical models, etc.   
+
+% \section*{Heading}
+% \subsection*{Subhead}
+% Type or paste text here. You may break this section up into subheads as needed (e.g., one section on ``Materials'' and one on ``Methods'').
+
+% \subsection*{Materials}
+% Add a materials subsection if you need to.
+
+% \subsection*{Methods}
+% Add a methods subsection if you need to.
+
+
+\begin{table}
+\begin{center}
+\begin{tabular}{l c c c c c c}
+\hline
+Outcome & Estimator & Group & N & ATE & Std   & p value \\
+        &           &       &   &     & Error & \\
+\hline
+Thanks  & negative  & all &
+  $\Sexpr{prettyNum(subset(all.lang.results, model=="thanks sent" & lang == "all")$n.size, big.mark=",")}$ &
+  $\Sexpr{prettyNum(subset(all.lang.results, model=="thanks sent" & lang == "all")$Estimate, digits=2)}$ & 
+  $\Sexpr{prettyNum(subset(all.lang.results, model=="thanks sent" & lang == "all")$Std..Error, digits=2)}$ &
+  $\Sexpr{prettyNum(subset(all.lang.results, model=="thanks sent" & lang == "all")$pvalue, digits=2)}$ \\
+sent  & binomial \\
+  
+Two week  & difference  & all & 
+  $\Sexpr{prettyNum(subset(all.lang.results, model=="retention" & lang == "all")$n.size, big.mark=",")}$ &
+  $\Sexpr{prettyNum(subset(all.lang.results, model=="retention" & lang == "all")$Estimate, digits=2)}$ & 
+  $\Sexpr{prettyNum(subset(all.lang.results, model=="retention" & lang == "all")$Std..Error, digits=1)}$ &
+  $\Sexpr{prettyNum(subset(all.lang.results, model=="retention" & lang == "all")$pvalue, digits=2)}$ \\
+retention & in means  \\
+  
+Diff in daily & difference  & new & 
+  $\Sexpr{prettyNum(subset(all.lang.results, model=="labor hours" & subgroup=="newcomer" & lang == "all")$n.size, big.mark=",")}$ &
+  $\Sexpr{prettyNum(subset(all.lang.results, model=="labor hours" & subgroup=="newcomer" & lang == "all")$Estimate, digits=1)}$ & 
+  $\Sexpr{prettyNum(subset(all.lang.results, model=="labor hours" & subgroup=="newcomer" & lang == "all")$Std..Error, digits=1)}$ & 
+  $\Sexpr{prettyNum(subset(all.lang.results, model=="labor hours" & subgroup=="newcomer" & lang == "all")$pvalue, digits=2)}$ \\
+  labor hours & in means\\
+Manipulation & difference  & all &
+  $\Sexpr{prettyNum(subset(all.lang.results, model=="manipulation check" & lang=="all")$n.size, big.mark=",")}$ &
+  $\Sexpr{prettyNum(subset(all.lang.results, model=="manipulation check" & lang=="all")$Estimate, digits=2)}$ & 
+  $\Sexpr{prettyNum(subset(all.lang.results, model=="manipulation check" & lang=="all")$Std..Error, digits=2)}$ & $<0.0001$ \\
+  % $\Sexpr{prettyNum(subset(all.lang.results, model=="manipulation check" & lang=="all")$pvalue, digits=2)}$\\
+check & in means \\
+
+\hline
+\end{tabular}
+\caption{Pre-registered intent-to-treat estimates of average treatment effects among Wikipedia participants. P-values are adjusted for multiple comparisons.}
+\label{table:preregresults}
+\end{center}
+\end{table}
+
+
+\begin{table}
+\begin{center}
+\begin{tabular}{l c c c c}
+\textbf{Language} & \textbf{Model} &  \textbf{Test Data N} & \textbf{Precision} & \textbf{Recall} \\
+\hline
+DE\footnote{\url{https://meta.wikimedia.org/wiki/Machine_learning_models/Production/German_Wikipedia_goodfaith_edit}} & Good Faith & 18150 & 0.989 & 0.997 \\
+PL\footnote{\url{https://meta.wikimedia.org/wiki/Machine_learning_models/Production/Polish_Wikipedia_goodfaith_edit}} & Good Faith & 4772 & 0.987 & 0.998 \\
+AR\footnote{\url{https://meta.wikimedia.org/wiki/Machine_learning_models/Production/Arabic_Wikipedia_goodfaith_edit}} & Good Faith & 18208 & 0.994 & 0.999 \\
+\end{tabular}
+\caption{Performance of machine learning models used in participant inclusion criteria, drawn from model documentation published by the Wikimedia Foundation}
+\label{table:mlresults}
+\end{center}
+\end{table}
+
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.9\linewidth]{figs/cs-app-de-2-options.png}
+    \caption{Volunteers used this software application to choose which contributions to thank. The application showed users the username of the potential thanks recipient followed by an edit to Wikipedia that machine learning models identified as potentially meriting thanks, in context. Edits to Wikipedia were displayed to users as highlighted revisions in the text of articles. Volunteers could choose to send thanks or skip to the next case.}
+    \label{fig:app}
+\end{figure}
+
+
+
+%%% Add this line AFTER all your figures and tables
+\FloatBarrier
+
+
+% \dataset{dataset_one.txt}{Type or paste legend here.}
+
+% \dataset{dataset_two.txt}{Type or paste legend here. Adding longer text to show what happens, to decide on alignment and/or indentations for multi-line or paragraph captions.}
+
+% \bibliography{references}
+
+\end{document}

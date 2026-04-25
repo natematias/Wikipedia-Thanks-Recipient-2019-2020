@@ -1,0 +1,581 @@
+\documentclass[9pt,twoside,lineno]{pnas-new}
+% Use the lineno option to display guide line numbers if required.
+
+\templatetype{pnassupportinginfo}
+
+\title{How Cascades of Private Gratitude Sustain Public Goods: Four Field Experiments with Wikipedia}
+
+\author{J. Nathan Matias, Julia Kamin, Reem Al-Kashif, Max Klein, Eric Pennington}
+
+\correspondingauthor{\textsuperscript{2}To whom correspondence should be addressed. E-mail: nathan.matias@cornell.edu}
+
+
+
+<<init, echo=FALSE, results='hide'>>=
+load("data/paper-data.RData")
+load("data/ITT_table.RData")
+all.cace.df <-  cbind(factor = rownames(all.cace.df), all.cace.df)
+all.newcomer.cace.df <-  cbind(factor = rownames(all.newcomer.cace.df), all.newcomer.cace.df)
+
+# Smart number formatter: 2dp, but 4dp if rounds to 0.00
+fmt <- function(x) {
+  sapply(x, function(v) {
+    if (is.na(v)) return("--")
+    if (v == 0) return("0")
+    if (abs(v) >= 0.005) return(sprintf("%.2f", v))
+    if (abs(v) >= 0.00005) return(sprintf("%.4f", v))
+    return(sprintf("%.2e", v))
+  })
+}
+
+# Smart p-value formatter
+fmt_p <- function(p) {
+  sapply(p, function(v) {
+    if (is.na(v)) return("--")
+    if (v < 0.0001) return("$<$0.0001")
+    if (v < 0.001)  return(sprintf("%.4f", v))
+    if (v < 0.01)   return(sprintf("%.3f", v))
+    return(sprintf("%.2f", v))
+  })
+}
+@
+
+
+\begin{document}
+
+
+%% Comment out or remove this line before generating final copy for submission; this will also remove the warning re: "Consecutive odd pages found".
+% \instructionspage
+
+\fancyhead{}% Clear line-count headers from pnas-new.cls
+\maketitle
+
+
+
+
+%% Adds the main heading for the SI text. Comment out this line if you do not have any supporting information text.
+\SItext
+This Supporting Information provides detailed tables and figures for the field experiment described in the main text, in which we randomly assigned over 15,000 vetted Wikipedia contributors across the Arabic, German, Persian, and Polish language editions to receive private thank-you messages from peer volunteers or to serve as controls. The main text reports that receiving thanks increased the rate at which participants thanked others, improved two-week retention, and raised daily labor hours---with the magnitude of labor-hour effects varying by pre-treatment activity level and contributor experience. Below, we present the full statistical results, robustness checks, diagnostic analyses, and descriptive summaries that underlie these findings.
+
+% \subsection*{Subhead}
+% Type or paste text here. This should be additional explanatory text such as an extended technical description of results, full details of mathematical models, etc.
+
+% \section*{Heading}
+% \subsection*{Subhead}
+% Type or paste text here. You may break this section up into subheads as needed (e.g., one section on ``Materials'' and one on ``Methods'').
+
+% \subsection*{Materials}
+% Add a materials subsection if you need to.
+
+% \subsection*{Methods}
+% Add a methods subsection if you need to.
+
+% -------------------------------------------------------------------------------------------------------------------
+\section*{Summary of Pre-Registered Results}
+Table~\ref{table:preregresults} summarizes the pre-registered intent-to-treat (ITT) estimates pooled across all four Wikipedia language communities. These are the primary confirmatory analyses described in the main text: the effect of being assigned to receive thanks on (1) the number of thanks subsequently sent to other editors, (2) two-week retention on Wikipedia, (3) post-treatment labor hours per day among newcomers, and (4) a manipulation check confirming that treated participants recalled receiving thanks in a follow-up survey. All p-values except the manipulation check are adjusted for multiple comparisons using the Holm method.
+
+
+% -------------------------------------------------------------------------------------------------------------------
+\section*{Machine Learning Models for Participant Selection}
+As described in the main text, volunteers used a custom software application (Figure~\ref{fig:app}) to identify and thank Wikipedia contributors whose recent edits were flagged as good-faith contributions by machine learning models maintained by the Wikimedia Foundation. Table~\ref{table:mlresults} reports the precision and recall of these models on held-out test data. High precision ensures that nearly all flagged edits were genuinely good-faith, while high recall ensures that few deserving edits were missed. German Wikipedia was excluded because we did not use machine learning method for participant selection of this community.
+
+
+% -------------------------------------------------------------------------------------------------------------------
+
+\section*{Randomization Balance}
+To confirm that the block randomization successfully created comparable treatment and control groups, Table~\ref{table:balance} compares pre-treatment characteristics across all participants. Randomization was stratified by language and experience level, so categorical variables (experience category, newcomer status, and language) are perfectly balanced by design. For continuous pre-treatment variables---labor hours per day, total labor hours, thanks sent, and thanks received---we report Wilcoxon rank-sum tests and standardized differences (Cohen's $d$). With over 15,000 participants, even trivially small differences can reach statistical significance; the key diagnostic is that all standardized differences are below $|d| = 0.05$, indicating negligible imbalance.
+
+
+% -------------------------------------------------------------------------------------------------------------------
+\section*{Robustness to Participant Exclusions}
+During the study, 142 randomization blocks (284 participants) were excluded from the primary analysis because one or both members of a block had deleted their account or received multiple thanks due to software errors or volunteer selection decisions. Table~\ref{table:predrop_results} compares the ITT estimates before and after these exclusions. The consistency of point estimates, standard errors, and p-values across the two samples confirms that the exclusions do not materially affect the conclusions reported in the main text.
+
+
+% -------------------------------------------------------------------------------------------------------------------
+% Full model results
+
+\section*{Full Intent-to-Treat Results by Subgroup and Language}
+The paper reports pooled treatment effects and highlights key subgroup differences between newcomers and experienced contributors. Tables~\ref{table:full_itt_subgroup} and~\ref{table:full_itt_language} present the complete ITT estimates. Table~\ref{table:full_itt_subgroup} breaks results down by participant experience level (all participants, newcomers, and experienced contributors), pooled across languages. Table~\ref{table:full_itt_language} reports language-specific estimates for each Wikipedia community, enabling readers to assess the consistency of treatment effects across the four cultural and linguistic contexts.
+
+
+% -------------------------------------------------------------------------------------------------------------------
+
+\section*{Labor Hours Interaction Models}
+The main text reports that receiving thanks increased post-treatment labor hours per day. Table~\ref{table:full_labor_perday} presents the full coefficient estimates from Tweedie generalized linear mixed models with a log link, including the intercept, main treatment effect, pre-treatment labor hours, and their interaction. Random intercepts for randomization blocks account for the paired design. Percentage changes are computed as $(e^{\hat{\beta}} - 1) \times 100$ to aid interpretation on the original scale. As reported in the Exploratory Subgroup Analysis section below, the treatment effect on labor hours varies by pre-treatment activity level, with opposing interaction patterns for newcomers and experienced contributors (Figure~\ref{fig:labor.hours.interaction}).
+
+
+% -------------------------------------------------------------------------------------------------------------------
+
+% -------------------------------------------------------------------------------------------------------------------
+
+\section*{Exploratory Subgroup Analysis: Labor Hours Interaction by Experience Level}
+As a follow-up exploratory analysis not included in the pre-registration, we investigated whether the treatment effect on post-treatment labor hours varied by pre-treatment activity level and differed between newcomers and experienced contributors. We conducted a stepwise analysis of three Tweedie generalized linear mixed models: (1) a baseline model with treatment assignment only, (2) a model adjusting for centered pre-treatment labor hours per day as a covariate, and (3) an interaction model allowing the treatment effect to vary by pre-treatment activity level. We conducted these analyses separately for newcomers (accounts $<$90 days old) and experienced contributors, re-centering covariates within each subgroup to estimate subgroup-specific effects. Each model includes random intercepts for the matched-pair design. Model selection using Akaike Information Criterion (AIC) weights \cite{burnham_model_2002} consistently favored the interaction model (AIC weights $>$0.99 for all comparisons). Model diagnostics using simulated residuals \cite{hartig_dharma_2022} are presented in Figure~\ref{fig:tweedie_dharma}. Full coefficient estimates are in Table~\ref{table:full_labor_perday}; Figure~\ref{fig:labor.hours.interaction} shows the marginal treatment effects by pre-treatment activity level for each subgroup.
+
+The interaction with pre-treatment activity differed in direction across experience groups. For newcomers, the average treatment effect was large and positive but diminished for those with higher pre-treatment activity. For experienced contributors, no average treatment effect was found, but the interaction was positive---higher pre-treatment activity amplified the treatment effect. These opposing patterns are consistent with the discussion in the main text: gratitude may function as a self-efficacy signal for new contributors entering the community, and as a reinforcement mechanism for experienced contributors already embedded in high-output work patterns.
+
+
+% -------------------------------------------------------------------------------------------------------------------
+
+\section*{Validation of Model Assumptions}
+We assessed the adequacy of all parametric models reported in the main text using simulation-based residual diagnostics implemented in the DHARMa package for R \cite{hartig_dharma_2022}. DHARMa creates randomized quantile residuals by simulating new data from the fitted model and comparing observed values against the simulated distribution. If the model is correctly specified, these residuals follow a uniform distribution on $[0,1]$, regardless of the underlying model family. This approach enables standard diagnostic plots---quantile-quantile (QQ) plots and residual-versus-predicted plots---to be applied uniformly to generalized linear models and generalized linear mixed models, including zero-inflated and over-dispersed count models.
+
+For each model, we generated 1{,}000 simulations and performed a Kolmogorov-Smirnov (KS) test for uniformity, a dispersion test comparing the standard deviation of observed versus simulated residuals, and a zero-inflation test comparing the observed proportion of zeros to the simulated expectation. In addition, we present a normal QQ plot of residuals from the pre-registered difference-in-means specification for labor hours to motivate the switch to the Tweedie generalized linear mixed model, as described in the main text \cite{brooks_glmmtmb_2017}. Figures~\ref{fig:negbin_dharma}, \ref{fig:dim_qq}, and~\ref{fig:tweedie_dharma} present the residual diagnostic plots for each model.
+
+
+% -------------------------------------------------------------------------------------------------------------------
+\section*{Descriptive Statistics for Distribution of Thanks}
+Table~\ref{table:thanks-distribution} reports the distribution of thanks by group, Wikipedia language edition, and participant experience level. Figures~\ref{fig:first-gen-thanks},~\ref{fig:second-gen-thanks},~\ref{fig:control-thanks}, and~\ref{fig:treated-vs-control-thanks} show the weekly time series of first-generation thanks received, second-generation thanks sent by treated participants, thanks sent by control participants, and a direct comparison of treated versus control thanking behavior, respectively. Because participants were recruited in rolling waves, the calendar-date patterns in these figures reflect recruitment timing rather than treatment timing; apparent temporal differences between groups should not be interpreted as onset-lag effects. See Table~\ref{table:second-gen-sent} for within-pair onset-lag comparisons that account for this design feature.
+
+
+% -------------------------------------------------------------------------------------------------------------------
+\section*{Second-Generation Thanks: Sender Behavior and Response Lag}
+Both treated and control participants sent second-generation thanks, but treated participants sent 43\% more overall (1{,}504 vs.\ 1{,}048). Because participants were recruited in rolling waves throughout the study period, absolute calendar dates of thanking are not meaningful for comparing groups. Instead, we measure the \emph{onset lag}: the number of days from a shared pair-level baseline to the date each participant sent their first second-generation thanks, with one observation per unique sender. The baseline is the date on which the volunteer application sent first-generation thanks to the treated participant in each matched pair. Both the treated participant and their matched control use this same date as their baseline, making the comparison within-pair and directly comparable.
+
+Table~\ref{table:second-gen-sent} reports the volume, intensity, and onset timing of second-generation thanks sent by each group. The median onset lag was similar across groups: 15~days for treated versus 13~days for control overall. Within individual languages, onset lags were also comparable (11--16~days for both groups in every language). The treatment effect therefore operated primarily through increased volume and intensity of thanking---more unique senders (266 vs.\ 222), and more thanks per sender (5.7 vs.\ 4.7)---rather than through earlier initiation of thanking behavior.
+
+% -------------------------------------------------------------------------------------------------------------------
+\section*{Second-Generation Thanks: Recipient Patterns and Community Circulation}
+Of the 2{,}552 second-generation thanks sent during the study period, 1{,}444 (56.6\%) were received by Wikipedia editors outside the study and 1{,}108 (43.4\%) were received by other study participants. Table~\ref{table:second-gen-received} provides a full cross-tabulation of second-generation thanks by sender group (treated vs.\ control) and recipient status (treated participant, control participant, or non-participant). The majority of thanks to study participants went to treated participants (891 of 1{,}108, 80.4\%), which is expected because the same volunteer application used to select treatment participants also flagged their edits as thankable.
+
+Because the active editing communities are small relative to the number of study participants (Table~\ref{table:second-gen-community}), second-generation thanks circulated back to control group members who were not targeted by the intervention. This pattern is most evident in Persian and Polish Wikipedias. In Persian, control participants received 74 second-generation thanks---32 from treated senders and 42 from control senders, an almost even split. In Polish, control participants received 130 thanks---63 from treated senders and 67 from control senders, again near parity. Figure~\ref{fig:received-by-group} shows the weekly count of second-generation thanks \emph{received} by treated versus control study participants, and Figure~\ref{fig:control-received-by-sender} decomposes thanks received by control participants by sender group. These patterns are consistent with the limited recipient pool in smaller communities causing second-generation thanks to circulate back to control group members, regardless of who initiated the thanking behavior.
+
+Table~\ref{table:second-gen-community} contextualizes second-generation thanks within each language community. The communities vary substantially in size, from ${\sim}960$ monthly active editors in Arabic Wikipedia to ${\sim}6{,}350$ in German Wikipedia, while study participants often exceed the monthly active editor count (e.g., 4{,}528 participants vs.\ 1{,}462 active editors in Polish). Standardizing by community size reveals a striking contrast: Polish Wikipedia had 893 second-generation thanks per 1{,}000 active editors and Persian 570, versus only 95 in Arabic and 64 in German. German Wikipedia, despite its much larger active editor population, had the highest number of non-participant recipients (237), suggesting that second-generation thanks were predominantly directed outward to editors beyond the study. Polish Wikipedia had the broadest thanking spread at 4.2 recipients per sender, compared to 1.4--1.9 in all other languages.
+
+% -------------------------------------------------------------------------------------------------------------------
+\section*{Spillover Sensitivity Analysis}
+
+The descriptive analyses above reveal that second-generation thanks sometimes circulated from treated participants back to control participants, potentially inflating control-group outcomes and attenuating the intent-to-treat (ITT) estimate. We assess this concern using three complementary analyses.
+
+\paragraph{Contamination rate.} Not all participants assigned to the treatment arm actually received first-generation thanks: some cases were skipped by volunteers, expired before any volunteer reviewed them, or involved accounts deleted before thanks could be sent. Only second-generation thanks sent by participants with a verified first-generation thanks receipt (i.e., those with a non-null volunteer sender recorded in the data) constitute a genuine treatment-spillover pathway. Of the 104 second-generation thanks directed by treatment recipients toward control recipients (Table~\ref{table:second-gen-received}), 71 came from verified treated participants. These 71 thanks reached \textbf{49 unique control participants} (0.6\% of all controls; Table~\ref{table:second-gen-received}, parenthetical values). Contamination was negligible in Arabic (3 unique, 0.2\%) and German (5 unique, 0.2\%), but modest in Persian (4 unique, 0.3\%) and Polish (37 unique, 1.6\%).
+
+\paragraph{Exposure response.} Among control participants, those who received at least one second-generation thank from a verified treated sender sent second-generation thanks themselves at a rate of 24.5\%, compared with 2.7\% among unexposed controls. This comparison is correlational rather than causal: exposed controls are likely more active editors who would send thanks regardless of exposure. Nonetheless, the magnitude is consistent with a spillover pathway.
+
+\paragraph{Purified ITT.} Excluding the 49 exposed control participants from the control group yields a purified risk difference of 0.71 percentage points (treated sending rate 3.45\% vs.\ unexposed-control rate 2.74\%), compared with the standard ITT risk difference of 0.57 percentage points (3.45\% vs.\ 2.88\%). This 24\% increase in the estimated effect indicates that spillover to controls modestly attenuated the standard ITT estimate. The true direct effect of receiving first-generation thanks on second-generation thanks sending is somewhat larger than the reported ITT suggests.
+
+\paragraph{Ecological pattern.} The four language communities differ substantially in their ratio of study participants to monthly active editors (Table~\ref{table:second-gen-community}): German Wikipedia is under-saturated (0.84 participants per active editor), while Polish and Arabic are highly saturated ($\sim$3.1 and 3.2). Consistent with the spillover hypothesis, German, the community least saturated by study participants, shows the largest treated-to-control sending ratio (266 vs.\ 139 thanks, ratio 1.91), while Persian and Polish show smaller ratios (1.36 and 1.41). Arabic is anomalous in that the control group marginally exceeded the treated group in thanks sent, which likely reflects other community dynamics rather than saturation alone. With only four data points, this pattern is suggestive but not formally testable.
+
+Together, these analyses indicate that spillover from verified treated participants to control participants was small (0.6\% of controls directly affected) but dense in Polish Wikipedia where community saturation was highest. The standard ITT estimate is conservative by approximately 24\%, where the treatment effect on second-generation thanks sending is likely modestly underestimated.
+
+\clearpage
+\begin{table}
+\centering
+\caption{Pre-registered intent-to-treat (ITT) estimates of average treatment effects (ATE) among Wikipedia participants. Estimator abbreviations: NegBin = negative binomial regression; DiM = difference in means; Tweedie = Tweedie generalized linear mixed model. Standard errors (SE) reported. P-values adjusted for multiple comparisons (Holm method) except for manipulation check.}
+\label{table:preregresults}
+\begin{tabular}{l c c c c c c}
+\hline
+Outcome & Estimator & Group & N & ATE & SE & \textit{p} \\
+\hline
+Thanks sent & NegBin & All &
+  $\Sexpr{prettyNum(subset(all.lang.results, model=="thanks sent" & lang == "all")$n.size, big.mark=",")}$ &
+  $\Sexpr{prettyNum(subset(all.lang.results, model=="thanks sent" & lang == "all")$Estimate, digits=2)}$ &
+  $\Sexpr{prettyNum(subset(all.lang.results, model=="thanks sent" & lang == "all")$Std..Error, digits=2)}$ &
+  $\Sexpr{prettyNum(subset(all.lang.results, model=="thanks sent" & lang == "all")$pvalue, digits=2)}$ \\
+Two-week retention & DiM & All &
+  $\Sexpr{prettyNum(subset(all.lang.results, model=="retention" & lang == "all")$n.size, big.mark=",")}$ &
+  $\Sexpr{prettyNum(subset(all.lang.results, model=="retention" & lang == "all")$Estimate, digits=2)}$ &
+  $\Sexpr{prettyNum(subset(all.lang.results, model=="retention" & lang == "all")$Std..Error, digits=1)}$ &
+  $\Sexpr{prettyNum(subset(all.lang.results, model=="retention" & lang == "all")$pvalue, digits=2)}$ \\
+Labor hours per day & Tweedie & Newcomers &
+  $\Sexpr{prettyNum(subset(all.lang.results, model=="labor hours" & subgroup=="newcomer" & lang == "all")$n.size, big.mark=",")}$ &
+  $\Sexpr{prettyNum(subset(all.lang.results, model=="labor hours" & subgroup=="newcomer" & lang == "all")$Estimate, digits=1)}$ &
+  $\Sexpr{prettyNum(subset(all.lang.results, model=="labor hours" & subgroup=="newcomer" & lang == "all")$Std..Error, digits=1)}$ &
+  $\Sexpr{prettyNum(subset(all.lang.results, model=="labor hours" & subgroup=="newcomer" & lang == "all")$pvalue, digits=2)}$ \\
+Manipulation check & DiM & All &
+  $\Sexpr{prettyNum(subset(all.lang.results, model=="manipulation check" & lang=="all")$n.size, big.mark=",")}$ &
+  $\Sexpr{prettyNum(subset(all.lang.results, model=="manipulation check" & lang=="all")$Estimate, digits=2)}$ &
+  $\Sexpr{prettyNum(subset(all.lang.results, model=="manipulation check" & lang=="all")$Std..Error, digits=2)}$ & $<$0.0001 \\
+\hline
+\end{tabular}
+\end{table}
+
+\clearpage
+\begin{table}
+\centering
+\caption{Performance of machine learning models used in participant inclusion criteria, drawn from model documentation published by the Wikimedia Foundation: for Arabic(\url{https://meta.wikimedia.org/wiki/Machine_learning_models/Production/Arabic_Wikipedia_goodfaith_edit}), Persian (\url{https://meta.wikimedia.org/wiki/Machine_learning_models/Production/Persian_Wikipedia_goodfaith_edit}), and Polish (\url{https://meta.wikimedia.org/wiki/Machine_learning_models/Production/Polish_Wikipedia_goodfaith_edit}).}
+
+\label{table:mlresults}
+\begin{tabular}{l c c c c}
+\textbf{Language} & \textbf{Model} &  \textbf{Test Data N} & \textbf{Precision} & \textbf{Recall} \\
+\hline
+\href{https://meta.wikimedia.org/wiki/Machine_learning_models/Production/Arabic_Wikipedia_goodfaith_edit}{Arabic} & Good Faith & 18,208 & 0.994 & 0.999 \\
+\href{https://meta.wikimedia.org/wiki/Machine_learning_models/Production/Persian_Wikipedia_goodfaith_edit}{Persian} & Good Faith & 18,150 & 0.989 & 0.997 \\
+\href{https://meta.wikimedia.org/wiki/Machine_learning_models/Production/Polish_Wikipedia_goodfaith_edit}{Polish} & Good Faith & 4,772 & 0.987 & 0.998 \\
+\end{tabular}
+\end{table}
+
+\clearpage
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.9\linewidth]{figs/cs-app-de-2-options.png}
+    \caption{Volunteers used this software application to choose which contributions to thank. The application showed users the username of the potential thanks recipient followed by an edit to Wikipedia that machine learning models identified as potentially meriting thanks, in context. Edits to Wikipedia were displayed to users as highlighted revisions in the text of articles. Volunteers could choose to send thanks or skip to the next case.}
+    \label{fig:app}
+\end{figure}
+
+\clearpage
+\begin{table*}[t]
+\centering
+\caption{Balance table comparing pre-treatment characteristics of treatment and control groups. P-values are from Wilcoxon rank-sum tests (continuous variables) or chi-squared tests (categorical variables). Std.~Diff.~is Cohen's $d$ for continuous and binary variables or Cram\'er's $V$ for multi-category variables. With $N > 15{,}000$, small p-values can arise from trivially small differences; all $|d| < 0.05$ confirm negligible imbalance.}
+\label{table:balance}
+\begin{tabular}{lrrrll}
+\toprule
+ & \textbf{Control} & \textbf{Treatment} & \textbf{Total} & \textbf{p-value} & \textbf{Std.~Diff.} \\
+ & (N = 7,637) & (N = 7,637) & (N = 15,274) & & \\
+\midrule
+\multicolumn{6}{l}{\textit{Previous experience category}} \\
+\quad Newcomer (0 days) & 4,992 (65.37\%) & 4,992 (65.37\%) & 9,984 (65.37\%) & & \\
+\quad 90 days & 255 (3.34\%) & 255 (3.34\%) & 510 (3.34\%) & & \\
+\quad 180 days & 280 (3.67\%) & 280 (3.67\%) & 560 (3.67\%) & & \\
+\quad 365 days & 429 (5.62\%) & 429 (5.62\%) & 858 (5.62\%) & & \\
+\quad 730 days & 476 (6.23\%) & 476 (6.23\%) & 952 (6.23\%) & & \\
+\quad 1460 days & 586 (7.67\%) & 586 (7.67\%) & 1,172 (7.67\%) & & \\
+\quad 2920 days & 619 (8.11\%) & 619 (8.11\%) & 1,238 (8.11\%) & & \\
+\addlinespace
+\multicolumn{6}{l}{\textit{Newcomer status}} \\
+\quad Newcomer & 4,992 (65.37\%) & 4,992 (65.37\%) & 9,984 (65.37\%) & & \\
+\quad Experienced & 2,645 (34.63\%) & 2,645 (34.63\%) & 5,290 (34.63\%) & 1.00 & $<-$0.0001 \\
+\addlinespace
+\multicolumn{6}{l}{\textit{Language}} \\
+\quad Arabic & 1,518 (19.88\%) & 1,518 (19.88\%) & 3,036 (19.88\%) &  &  \\
+\quad German & 2,659 (34.82\%) & 2,659 (34.82\%) & 5,318 (34.82\%) &  &  \\
+\quad Persian & 1,177 (15.41\%) & 1,177 (15.41\%) & 2,354 (15.41\%) &  &  \\
+\quad Polish & 2,283 (29.89\%) & 2,283 (29.89\%) & 4,566 (29.89\%) & 1.00 & 0.00 \\
+\addlinespace
+\multicolumn{6}{l}{\textit{Pre-study labor hours per day}} \\
+\quad Mean (SD) & 0.03 (0.12) & 0.03 (0.11) & 0.03 (0.12) & $<$0.0001 & 0.03 \\
+\quad Median & 0 & 0.0034 & 0.0028 & & \\
+\addlinespace
+\multicolumn{6}{l}{\textit{Pre-study labor hours (total)}} \\
+\quad Mean (SD) & 1.24 (4.84) & 1.37 (4.82) & 1.31 (4.83) & $<$0.0001 & 0.03 \\
+\quad Median & 0 & 0.14 & 0.12 & & \\
+\addlinespace
+\multicolumn{6}{l}{\textit{Thanks sent (pre-study)}} \\
+\quad Mean (SD) & 4.15 (46.67) & 3.60 (32.64) & 3.87 (40.27) & 0.72 & -0.01 \\
+\quad Median & 0 & 0 & 0 & & \\
+\quad \% with any sent & 2275.76\% & 2245.65\% & 2260.70\% & & \\
+\addlinespace
+\multicolumn{6}{l}{\textit{Thanks received (pre-study)}} \\
+\quad Mean (SD) & 0 (0) & 0.35 (0.48) & 0.18 (0.38) & $<$0.0001 & 1.05 \\
+\quad Median & 0 & 0 & 0 & & \\
+\quad \% with any received & 0.00\% & 3538.04\% & 1769.02\% & & \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\clearpage
+\begin{table}[ht]
+\centering
+\small
+\caption{ITT estimates before and after removing 284 participants (142 blocks with deleted accounts or multiple thanks). P-values adjusted for multiple comparisons (Holm method) except for the manipulation check.}
+\label{table:predrop_results}
+\begin{tabular}{llrrrllrrrll}
+\toprule
+ & & \multicolumn{5}{c}{\textbf{Pre-Drop (N = 15,558)}} & \multicolumn{5}{c}{\textbf{Post-Drop (N = 15,274)}} \\
+\cmidrule(lr){3-7} \cmidrule(lr){8-12}
+\textbf{Outcome} & \textbf{Estimator} & N & Est. & SE & p & 95\% CI & N & Est. & SE & p & 95\% CI \\
+\midrule
+Thanks sent & NegBin & 15,558 & 0.42 & 0.14 & 0.006 & [0.14, 0.70] & 15,274 & 0.47 & 0.14 & 0.002 & [0.19, 0.76] \\
+Two-week retention & DiM & 15,558 & 0.02 & 0.01 & 0.002 & [0.01, 0.03] & 15,274 & 0.02 & 0.01 & 0.0009 & [0.01, 0.03] \\
+Labor hours per day & Tweedie & 15,558 & 0.10 & 0.04 & 0.02 & [0.02, 0.18] & 15,274 & 0.10 & 0.04 & 0.01 & [0.02, 0.19] \\
+\addlinespace
+Manipulation check & DiM & 786 & 0.28 & 0.03 & $<$0.0001 & [0.22, 0.35] & 767 & 0.29 & 0.03 & $<$0.0001 & [0.22, 0.36] \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\clearpage
+\begin{table}[ht]
+\centering
+\small
+\caption{Full report of ITT estimates by participant subgroup, pooled across all languages. P-values adjusted for multiple comparisons (Holm method) except for the manipulation check.}
+\label{table:full_itt_subgroup}
+\begin{tabular}{llcrrrrl}
+\toprule
+\textbf{Subgroup} & \textbf{Outcome} & \textbf{Estimator} & \textbf{N} & \textbf{Est.} & \textbf{SE} & \textbf{\textit{p}} & \textbf{95\% CI} \\
+\midrule
+All participants & Thanks sent & NegBin & 15,274 & 0.47 & 0.14 & 0.002 & [0.19, 0.76] \\
+ & Two-week retention & DiM & 15,274 & 0.02 & 0.01 & 0.0009 & [0.01, 0.03] \\
+ & Labor hours per day & Tweedie & 15,274 & 0.10 & 0.04 & 0.01 & [0.02, 0.19] \\
+ & Manipulation check & DiM & 767 & 0.29 & 0.03 & $<$0.0001 & [0.22, 0.36] \\
+\addlinespace
+Newcomers & Thanks sent & NegBin & 9,984 & 0.63 & 0.20 & 0.003 & [0.24, 1.03] \\
+ & Two-week retention & DiM & 9,984 & 0.02 & 0.01 & 0.005 & [0.01, 0.03] \\
+ & Labor hours per day & Tweedie & 9,984 & 0.43 & 0.08 & $<$0.0001 & [0.28, 0.58] \\
+ & Manipulation check & DiM & 190 & 0.34 & 0.07 & $<$0.0001 & [0.20, 0.48] \\
+\addlinespace
+Experienced & Thanks sent & NegBin & 5,290 & 0.24 & 0.22 & 0.33 & [-0.19, 0.66] \\
+ & Two-week retention & DiM & 5,290 & 0.03 & 0.01 & 0.07 & [0.0033, 0.05] \\
+ & Labor hours per day & Tweedie & 5,290 & -0.10 & 0.07 & 0.33 & [-0.24, 0.04] \\
+ & Manipulation check & DiM & 577 & 0.28 & 0.04 & $<$0.0001 & [0.20, 0.35] \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\clearpage
+\begin{table}[ht]
+\centering
+\small
+\caption{Full report of language-specific ITT estimates. P-values adjusted for multiple comparisons (Holm method) within each language group except for the manipulation check.}
+\label{table:full_itt_language}
+\begin{tabular}{llcrrrrl}
+\toprule
+\textbf{Language (group)} & \textbf{Outcome} & \textbf{Estimator} & \textbf{N} & \textbf{Est.} & \textbf{SE} & \textbf{\textit{p}} & \textbf{95\% CI} \\
+\midrule
+Arabic (newcomers) & Thanks sent & NegBin & 3,036 & 0.41 & 0.44 & 0.35 & [-0.45, 1.27] \\
+ & Two-week retention & DiM & 3,036 & 0.03 & 0.01 & 0.05 & [0.0047, 0.05] \\
+ & Labor hours per day & Tweedie & 3,036 & -0.21 & 0.15 & 0.33 & [-0.51, 0.09] \\
+ & Manipulation check & DiM & 22 & 0.20 & 0.21 & 0.36 & [-0.24, 0.64] \\
+\addlinespace
+German (newcomers) & Thanks sent & NegBin & 5,318 & 0.66 & 0.26 & 0.04 & [0.14, 1.17] \\
+ & Two-week retention & DiM & 5,318 & 0.02 & 0.01 & 0.10 & [-0.0031, 0.04] \\
+ & Labor hours per day & Tweedie & 5,318 & 0.24 & 0.10 & 0.04 & [0.05, 0.43] \\
+ & Manipulation check & DiM & 146 & 0.37 & 0.08 & $<$0.0001 & [0.22, 0.52] \\
+\addlinespace
+Polish (newcomers) & Thanks sent & NegBin & 1,630 & 0.90 & 0.45 & 0.09 & [0.01, 1.79] \\
+ & Two-week retention & DiM & 1,630 & 0.02 & 0.02 & 0.35 & [-0.02, 0.05] \\
+ & Labor hours per day & Tweedie & 1,630 & 0.79 & 0.17 & $<$0.0001 & [0.45, 1.12] \\
+ & Manipulation check & DiM & 22 & 0.27 & 0.22 & 0.23 & [-0.19, 0.72] \\
+\addlinespace
+Persian (experienced) & Thanks sent & NegBin & 2,354 & 0.13 & 0.37 & 0.99 & [-0.60, 0.85] \\
+ & Two-week retention & DiM & 2,354 & 0.05 & 0.02 & 0.006 & [0.02, 0.09] \\
+ & Labor hours per day & Tweedie & 2,354 & -0.08 & 0.12 & 0.99 & [-0.31, 0.15] \\
+ & Manipulation check & DiM & 4 & -0.50 & 0.50 & 0.50 & [-6.85, 5.85] \\
+\addlinespace
+Polish (experienced) & Thanks sent & NegBin & 2,936 & 0.32 & 0.27 & 0.70 & [-0.21, 0.86] \\
+ & Two-week retention & DiM & 2,936 & 0.0034 & 0.02 & 1.00 & [-0.03, 0.03] \\
+ & Labor hours per day & Tweedie & 2,936 & 0.0033 & 0.09 & 1.00 & [-0.17, 0.18] \\
+ & Manipulation check & DiM & 573 & 0.28 & 0.04 & $<$0.0001 & [0.20, 0.36] \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\clearpage
+\begin{table}[ht]
+\centering
+\small
+\caption{Full coefficient estimates from labor hours per day interaction models (Tweedie generalized linear mixed model, log link). All models include random intercepts for randomization blocks. Percentage change calculated as $(e^{\hat{\beta}} - 1) \times 100$.}
+\label{table:full_labor_perday}
+\begin{tabular}{llr@{\hskip 0.5em}lrl}
+\toprule
+\textbf{Subgroup} & \textbf{Predictor} & \multicolumn{2}{c}{\textbf{Estimate (\% change)}} & \textbf{SE} & \textbf{\textit{p}} \\
+\midrule
+All participants & Intercept & -6.04 &  & 0.05 & $<$0.0001 \\
+ & TREAT & 0.10 & (11.0\%) & 0.04 & 0.01 \\
+ & Pre-treatment labor hours per day & 2.49 &  & 0.11 & $<$0.0001 \\
+ & TREAT $\times$ Pre-treatment labor hours per day & 0.70 & (101.6\%) & 0.12 & $<$0.0001 \\
+\addlinespace
+Newcomers & Intercept & -6.69 & & 0.08 & $<$0.0001 \\
+ & TREAT & 0.32 & (38.1\%) & 0.07 & $<$0.0001 \\
+ & Pre-treatment labor hours per day & 6.51 &  & 0.31 & $<$0.0001 \\
+ & TREAT $\times$ Pre-treatment labor hours per day & -1.34 & (-73.9\%) & 0.33 & $<$0.0001 \\
+\addlinespace
+Experienced & Intercept & -5.11 &  & 0.07 & $<$0.0001 \\
+ & TREAT & 0.02 & (2.4\%) & 0.06 & 0.66 \\
+ & Pre-treatment labor hours per day & 1.86 &  & 0.12 & $<$0.0001 \\
+ & TREAT $\times$ Pre-treatment labor hours per day & 0.63 & (87.3\%) & 0.14 & $<$0.0001 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\clearpage
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.9\linewidth]{figs/interaction_effect_marginal_histogram.png}
+    \caption{The change in post-treatment labor hours per day in relation to centered pre-treatment labor hours per day for newcomers and experienced contributors (Table~\ref{table:full_labor_perday}). Histograms show the distribution of centered pre-treatment labor hours per day for each subgroup. The opposing slopes illustrate the contrasting interaction patterns: for newcomers, the gratitude effect diminishes with higher pre-treatment activity; for experienced contributors it is amplified.}
+    \label{fig:labor.hours.interaction}
+\end{figure}
+
+\clearpage
+\noindent While more active contributors experienced larger effects on labor hours on average, this interaction differed for newcomers ($n=\Sexpr{prettyNum(subset(labor_per_day_results, subgroup == "newcomer" & predictor == "TREAT1")$n.size, big.mark=",")}$) and experienced editors ($n=\Sexpr{prettyNum(subset(labor_per_day_results, subgroup == "experienced" & predictor == "TREAT1")$n.size, big.mark=",")}$). Subgroup analyses (Table~\ref{table:full_labor_perday}) reveal opposing interaction effects: negative among newcomers but positive among experienced contributors.
+
+\medskip
+\noindent\textbf{Newcomers.} Treated newcomers spent \Sexpr{prettyNum(exp(subset(labor_per_day_results, subgroup == "newcomer" & predictor == "TREAT1")$Estimate) * 100 - 100, digits=2)}\% more time contributing per day to Wikipedia (\textit{p}$<$0.0001) compared to untreated newcomers at average pre-treatment activity levels. The magnitude of this effect was lower for newcomers with higher pre-treatment activity: for every additional hour of pre-treatment contribution per day, the gratitude effect diminishes by \Sexpr{prettyNum(exp(subset(labor_per_day_results, subgroup == "newcomer" & predictor == "TREAT1:centered.labor.hours.per.day.pre.treatment")$Estimate) * -100 + 100, digits=2)}\% (\textit{p}$<$0.0001). For instance, a newcomer contributing 5 minutes more per day than the average experienced only a \Sexpr{prettyNum((exp(subset(labor_per_day_results, subgroup == "newcomer" & predictor == "TREAT1")$Estimate + subset(labor_per_day_results, subgroup == "newcomer" & predictor == "TREAT1:centered.labor.hours.per.day.pre.treatment")$Estimate * (5/60)) - 1) * 100, digits=2)}\% increase in labor hours due to the treatment relative to the control group. However, 49.7\% of newcomers contribute zero labor hours during the pre-treatment period, and 21.4\% contribute above the average (1.39 mins/day). Most newcomers contribute a similar amount of time to Wikipedia, with only 4.6\% editing the site for 5 more minutes a day than the average. This suggests that while gratitude is a powerful retention tool for new community members, it has less additional marginal utility for those who have already established contribution habits.
+
+\medskip
+\noindent\textbf{Experienced contributors.} A subgroup analysis of experienced contributors found an interaction in the opposite direction (\textit{p}$<$0.0001) but did not find a difference between treatment and control on average (\textit{p}$=$\Sexpr{prettyNum(subset(labor_per_day_results, subgroup == "experienced" & predictor == "TREAT1")$pvalue, digits=2, scientific=FALSE)}). For every additional hour of pre-treatment activity per day, treated experienced editors contributed significantly more by \Sexpr{prettyNum(exp(subset(labor_per_day_results, subgroup == "experienced" & predictor == "TREAT1:centered.labor.hours.per.day.pre.treatment")$Estimate) * 100 - 100, digits=2)}\% than untreated editors at average pre-treatment activity levels (\textit{p}$<$0.0001). For example, an experienced editor contributing 5 minutes more per day than the average responded to the treatment with a \Sexpr{prettyNum((exp(subset(labor_per_day_results, subgroup == "experienced" & predictor == "TREAT1")$Estimate + subset(labor_per_day_results, subgroup == "experienced" & predictor == "TREAT1:centered.labor.hours.per.day.pre.treatment")$Estimate * (5/60)) - 1) * 100, digits=1)}\% increase in labor hours relative to the control group. Similarly, 42.1\% of experienced contributors contribute zero labor hours during the pre-treatment period, and 15.8\% contribute above the average (2.77 mins/day). This finding implies that for established community members, gratitude does not revitalize low-activity users, but successfully reinforces and sustains the labor of editors who take on the most workload.
+
+\clearpage
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.95\linewidth]{figs/si_diagnostic_thanks_sent.png}
+    \caption{DHARMa simulation-based residual diagnostics for the negative binomial model of thanks sent (all participants, $N = 15{,}274$). \textbf{Left:} QQ plot of randomized quantile residuals against the expected uniform distribution. The KS test ($p = 0.537$) indicates no significant deviation from uniformity, confirming adequate model specification. \textbf{Right:} Residuals versus model predictions (rank-transformed). The red lines show the empirical quantile trends; deviations from the horizontal reference lines (at 0.25, 0.50, and 0.75) would indicate misspecification. The dispersion test detected significant overdispersion ($p < 0.001$), which is common in large-sample count data but does not invalidate the negative binomial specification, as the negative binomial family explicitly models overdispersion relative to the Poisson.}
+    \label{fig:negbin_dharma}
+\end{figure}
+
+\clearpage
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.95\linewidth]{figs/si_diagnostic_dim_labor_hours.png}
+    \caption{Residual diagnostics for the pre-registered difference-in-means (DiM) model of labor hours (newcomers, $N = 9{,}984$). \textbf{Left:} Normal QQ plot showing severe departure from normality, with a heavy right tail reflecting the zero-inflated and highly right-skewed distribution of labor hours. \textbf{Right:} Residuals versus fitted values, revealing pronounced heteroscedasticity and non-constant variance. These violations of the linear model assumptions motivated the adoption of the Tweedie generalized linear mixed model for analyzing labor hours outcomes.}
+    \label{fig:dim_qq}
+\end{figure}
+
+\clearpage
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.95\linewidth]{figs/si_diagnostic_combined.png}
+    \caption{DHARMa simulation-based residual diagnostics for the Tweedie generalized linear mixed models of post-treatment labor hours per day, shown separately for all participants ($N = 15{,}274$), newcomers ($N = 9{,}984$), and experienced contributors ($N = 5{,}290$). \textbf{Top row:} QQ plots of randomized quantile residuals. While the KS tests are significant due to the large sample sizes, the residuals closely follow the expected uniform distribution, with dispersion tests confirming adequate variance specification for all participants ($p = 0.462$) and newcomers ($p = 0.684$). The experienced subgroup shows mild dispersion ($p = 0.04$). \textbf{Bottom row:} Residuals versus model predictions (rank-transformed). Zero-inflation tests were non-significant for all three subgroups ($p > 0.10$), confirming that the Tweedie distribution adequately captures the excess zeros characteristic of labor hours data. These diagnostics support the use of Tweedie generalized linear mixed models over the pre-registered linear specification (Figure \ref{fig:dim_qq}).}
+    \label{fig:tweedie_dharma}
+\end{figure}
+
+\clearpage
+\begin{table*}[t]
+\centering
+\caption{Distribution of thanks by group, Wikipedia language edition, and participant experience level. First-generation thanks are those sent by the volunteers to the treatment group as part of the experimental intervention. Second-generation thanks are the thanks subsequently sent by the treated participants to other editors. Control group thanks are the thanks sent by the control group who did not receive the treatment. Percentages are column-wise within each group.}
+\label{table:thanks-distribution}
+\begin{tabular}{lrrr}
+\toprule
+ & \textbf{First-Gen} & \textbf{Second-Gen} & \textbf{Control} \\
+ & \textbf{(Received)} & \textbf{(Treated)} & \textbf{(Sent)} \\
+ & (N = 2,806) & (N = 1,523) & (N = 1,066) \\
+\midrule
+\multicolumn{4}{l}{\textit{Experience level}} \\
+\quad Experienced & 1,171 (41.7\%) & 1,119 (73.5\%) & 830 (77.9\%) \\
+\quad Newcomer & 1,635 (58.3\%) & 404 (26.5\%) & 236 (22.1\%) \\
+\addlinespace
+\multicolumn{4}{l}{\textit{Language}} \\
+\quad Arabic & 199 (7.1\%) & 43 (2.8\%) & 48 (4.5\%) \\
+\quad German & 1,319 (47.0\%) & 285 (18.7\%) & 157 (14.7\%) \\
+\quad Persian & 88 (3.1\%) & 432 (28.4\%) & 318 (29.8\%) \\
+\quad Polish & 1,200 (42.8\%) & 763 (50.1\%) & 543 (50.9\%) \\
+\addlinespace
+\multicolumn{4}{l}{\textit{Language $\times$ Experience}} \\
+\quad Arabic -- Newcomer & 199 (7.1\%) & 43 (2.8\%) & 48 (4.5\%) \\
+\quad German -- Newcomer & 1,319 (47.0\%) & 285 (18.7\%) & 157 (14.7\%) \\
+\quad Persian -- Experienced & 88 (3.1\%) & 432 (28.4\%) & 318 (29.8\%) \\
+\quad Polish -- Newcomer & 117 (4.2\%) & 76 (5.0\%) & 31 (2.9\%) \\
+\quad Polish -- Experienced & 1,083 (38.6\%) & 687 (45.1\%) & 512 (48.0\%) \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\clearpage
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.9\linewidth]{figs/first.gen.thanks.pdf}
+    \caption{The weekly count of first-generation thanks received by study participants, broken down by Wikipedia language edition (Arabic, German, Persian, Polish) and participant experience level (Newcomer vs. Experienced). First-generation thanks are those sent by the research team to treatment group participants as part of the experimental intervention. The stacked bars show how thanks were distributed over the study period, with each panel representing a different language community. The x-axis shows the start date of each week, with a 4-week break, and the y-axis shows the count of thanks received during that week.}
+    \label{fig:first-gen-thanks}
+\end{figure}
+
+\clearpage
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.9\linewidth]{figs/sec.gen.thanks.pdf}
+    \caption{The weekly count of second-generation thanks sent by the treated participants who had previously received first-generation thanks, broken down by Wikipedia language edition (Arabic, German, Persian, Polish) and participant experience level (Newcomer vs. Experienced).  These are organic thanks sent by participants to other Wikipedia editors, representing the ``pay it forward'' behavior we hypothesized would result from receiving thanks. The stacked bars show how thanks were distributed over the study period, with each panel representing a different language community. The x-axis shows the start date of each week, with a 4-week break, and the y-axis shows the count of thanks received during that week. \textbf{Note:} Because participants were recruited in rolling waves, calendar dates reflect recruitment timing, not treatment timing. See Table~\ref{table:second-gen-sent} for onset-lag comparisons that account for this design feature.}
+    \label{fig:second-gen-thanks}
+\end{figure}
+
+\clearpage
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.9\linewidth]{figs/control.group.thanks.pdf}
+    \caption{The weekly count of thanks sent by control group participants, broken down by Wikipedia language edition (Arabic, German, Persian, Polish) and participant experience level (Newcomer vs. Experienced). These participants did not receive first-generation thanks as part of the experimental intervention, so any thanks they sent represent baseline thanking behavior. The stacked bars show how thanks were distributed over the study period, with each panel representing a different language community. The x-axis shows the start date of each week, with a 4-week break, and the y-axis shows the count of thanks sent during that week. \textbf{Note:} Because participants were recruited in rolling waves, calendar dates reflect recruitment timing, not treatment timing. See Table~\ref{table:second-gen-sent} for onset-lag comparisons that account for this design feature.}
+    \label{fig:control-thanks}
+\end{figure}
+
+\clearpage
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.9\linewidth]{figs/treated.vs.control.thanks.pdf}
+    \caption{A comparison of the weekly count of thanks sent by treated and control group participants, broken down by Wikipedia language edition (Arabic, German, Persian, Polish). Treated participants received first-generation thanks as part of the experimental intervention, while control participants did not. The side-by-side bars allow direct comparison of thanking behavior between the two groups over the study period. Each panel represents a different language community. The x-axis shows the start date of each week, with a 4-week break, and the y-axis shows the count of thanks sent during that week. \textbf{Note:} Because participants were recruited in rolling waves, calendar dates reflect recruitment timing, not treatment timing. Apparent temporal differences between groups in this figure should not be interpreted as onset-lag effects; see Table~\ref{table:second-gen-sent} for onset-lag comparisons that account for this design feature.}
+    \label{fig:treated-vs-control-thanks}
+\end{figure}
+
+\clearpage
+\begin{table}[ht]
+\centering
+\small
+\caption{Second-generation thanks \emph{sent} by treated and control group participants, by Wikipedia language edition. Because participants were recruited in rolling waves, we report the \emph{onset lag}---the median number of days from the first-generation thanks date to the date each participant sent their \emph{first} second-generation thanks---rather than absolute calendar dates. Each unique sender contributes one observation. The baseline date is when the volunteer application sent first-generation thanks to the treated participant in each matched pair; both treated and control participants in the same pair use this same date, making the comparison within-pair and directly comparable. Onset lags were similar across groups (11--16~days), indicating that the treatment effect operated through increased volume and intensity of thanking rather than earlier initiation. Arabic is the only language where control participants sent more total thanks than treated participants (48 vs.\ 43) and had more unique senders (19 vs.\ 17), likely reflecting its small and dense editing community. In Polish Wikipedia, treated and control participants had nearly equal numbers of unique senders (109 vs.\ 107), yet treated senders sent 37\% more thanks per sender (7.0 vs.\ 5.1), illustrating that the treatment effect operated through \emph{intensity} of thanking rather than participation rate.}
+\label{table:second-gen-sent}
+\begin{tabular}{ll rrr rr}
+\toprule
+\textbf{Language} & \textbf{Group} & \textbf{Thanks} & \textbf{Unique Senders} & \textbf{Thanks/Sender} & \textbf{Onset Lag (d)} & \textbf{Interquartile Range (d)} \\
+\midrule
+Arabic & Treated &  43 & 17 & 2.5 & 15 & [4, 25] \\
+       & Control &  48 & 19 & 2.5 & 16 & [9, 26] \\
+\addlinespace
+German & Treated & 266 & 78 & 3.4 & 15 & [6, 23] \\
+       & Control & 139 & 53 & 2.6 & 15 & [5, 30] \\
+\addlinespace
+Persian & Treated & 432 & 62 & 7.0 & 14 & [5, 26] \\
+        & Control & 318 & 43 & 7.4 & 11 & [3, 25] \\
+\addlinespace
+Polish & Treated & 763 & 109 & 7.0 & 15 & [5, 26] \\
+       & Control & 543 & 107 & 5.1 & 12 & [5, 21] \\
+\addlinespace
+\textbf{Total} & \textbf{Treated} & \textbf{1{,}504} & \textbf{266} & \textbf{5.7} & \textbf{15} & \textbf{[5, 25]} \\
+ & \textbf{Control} & \textbf{1{,}048} & \textbf{222} & \textbf{4.7} & \textbf{13} & \textbf{[4, 25]} \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\clearpage
+\begin{table}[ht]
+\centering
+\small
+\caption{Cross-tabulation of second-generation thanks \emph{received}, by language edition, sender group, and recipient status. Each language block has three rows: thanks sent by \emph{treated} participants, thanks sent by \emph{control} participants, and an italic \emph{All} row totalling both groups. Columns classify each thank by the recipient's study status: \textbf{Treated Recip.}\ = study-enrolled treated participant; \textbf{Control Recip.}\ = study-enrolled control participant; \textbf{Non-participant} = Wikipedia editor not enrolled in the study; \textbf{Total} = row sum. \textbf{Unique Ctrl.\ Recip.}$^\dagger$ addresses the spillover question directly: it counts the number of \emph{distinct} control participants who received a second-generation thank from a treated sender who was \emph{verified} to have actually received a first-generation thank (i.e., a non-null volunteer sender is recorded in the data). Treated participants who were assigned to treatment but never received the thank---because the volunteer skipped them, the notification expired unseen, or the account was deleted---are excluded. This column is only defined for Treated-sender rows; ``--'' in Control-sender rows indicates the column is not applicable, and blank cells in \emph{All} rows indicate the aggregate is not meaningful. In Persian Wikipedia, the 74 thanks received by control participants were split roughly evenly between treated senders (32) and control senders (42); in Polish Wikipedia the split was similarly even (63 vs.\ 67). This near-parity indicates that second-generation thanks circulated through the small active editing community regardless of treatment assignment. In total, 49 unique control participants (0.6\% of all controls) were reached via the verified treatment-spillover pathway.}
+\label{table:second-gen-received}
+\begin{tabular}{ll rrrrr}
+\toprule
+\textbf{Language} & \textbf{Sender} & \textbf{Treated Recip.} & \textbf{Control Recip.} & \textbf{Unique Ctrl. Recip.}$^\dagger$ & \textbf{Non-participant} & \textbf{Total} \\
+\midrule
+Arabic & Treated &   3 &   3 &  3 &  37 &  43 \\
+       & Control &   8 &   3 & -- &  37 &  48 \\
+       & \textit{All} & \textit{11} & \textit{6} & & \textit{74} & \textit{91} \\
+\addlinespace
+German & Treated &   5 &   6 &  5 & 255 & 266 \\
+       & Control &   3 &   1 & -- & 135 & 139 \\
+       & \textit{All} & \textit{8} & \textit{7} & & \textit{390} & \textit{405} \\
+\addlinespace
+Persian & Treated &  72 &  32 &  4 & 328 & 432 \\
+        & Control &  52 &  42 & -- & 224 & 318 \\
+        & \textit{All} & \textit{124} & \textit{74} & & \textit{552} & \textit{750} \\
+\addlinespace
+Polish & Treated & 475 &  63 & 37 & 225 & 763 \\
+       & Control & 273 &  67 & -- & 203 & 543 \\
+       & \textit{All} & \textit{748} & \textit{130} & & \textit{428} & \textit{1{,}306} \\
+\addlinespace
+\textbf{Total} & \textbf{Treated} & \textbf{555} & \textbf{104} & \textbf{49} & \textbf{845} & \textbf{1{,}504} \\
+ & \textbf{Control} & \textbf{336} & \textbf{113} & \textbf{--} & \textbf{599} & \textbf{1{,}048} \\
+ & \textbf{\textit{All}} & \textbf{\textit{891}} & \textbf{\textit{217}} & & \textbf{\textit{1{,}444}} & \textbf{\textit{2{,}552}} \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\clearpage
+\begin{table}[ht]
+\centering
+\small
+\caption{Second-generation thanks and community context, by Wikipedia language edition. ``Active editors'' is the average monthly count of editors with at least one edit during the study period (August~2019 -- February~2020). ``Study participants'' is the total number of editors enrolled in the experiment (recruited from cumulative editing activity, so this count may exceed the monthly active editor count). ``Unique senders'' and ``unique recipients'' count distinct individuals who sent or received at least one second-generation thank. ``Non-participant recipients'' counts unique recipients not enrolled in the study. ``Recipients / sender'' is the mean number of distinct recipients per sender. ``Thanks / 1{,}000 active'' standardizes total second-generation thanks by community size.}
+\label{table:second-gen-community}
+\begin{tabular}{l rr rr r r r}
+\toprule
+\textbf{Language} & \textbf{Active Editors} & \textbf{Study Partic.} & \textbf{Unique Senders} & \textbf{Unique Recip.} & \textbf{Non-Part. Recip.} & \textbf{Recip./Sender} & \textbf{Thanks/1{,}000 Active} \\
+\midrule
+Arabic  &    959 & 3{,}072 &  36 &   49 &  38 & 1.4 &   95 \\
+German  & 6{,}348 & 5{,}416 & 131 &  247 & 237 & 1.9 &   64 \\
+Persian & 1{,}317 & 2{,}413 & 105 &  195 & 117 & 1.9 &  570 \\
+Polish  & 1{,}462 & 4{,}528 & 216 &  906 & 151 & 4.2 &  893 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\clearpage
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.9\linewidth]{figs/second.gen.received.by.group.pdf}
+    \caption{The weekly count of second-generation thanks \emph{received} by study participants, broken down by recipient group (Treated vs.\ Control) and Wikipedia language edition (Arabic, German, Persian, Polish). Each panel shows one language community with free y-axis scales to accommodate the different volumes. In Persian Wikipedia, control participants received 74 second-generation thanks compared to 124 for treated participants, and in Polish Wikipedia 130 compared to 748, despite control participants not being targeted by the intervention. This pattern is consistent with the limited recipient pool in smaller communities causing thanks to circulate back to control group members.}
+    \label{fig:received-by-group}
+\end{figure}
+
+\clearpage
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.9\linewidth]{figs/control.received.thanks.by.sender.pdf}
+    \caption{The weekly count of second-generation thanks \emph{received} by control group participants, broken down by who sent the thanks (Treated sender vs.\ Control sender) and Wikipedia language edition (Arabic, German, Persian, Polish). In Persian Wikipedia, thanks received by control participants came roughly equally from treated senders (32 total) and control senders (42 total). In Polish Wikipedia, 67 came from control senders and 63 from treated senders. This near-parity suggests that the ``pay it forward'' thanking behavior spread through the community irrespective of the original treatment assignment, with the small active editing pool causing thanks to circulate back to control participants.}
+    \label{fig:control-received-by-sender}
+\end{figure}
+
+
+\FloatBarrier
+
+\end{document}

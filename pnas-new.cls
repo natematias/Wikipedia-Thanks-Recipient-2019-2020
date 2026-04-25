@@ -58,9 +58,6 @@
 \RequirePackage{tikz}
 \RequirePackage[framemethod=tikz]{mdframed}
 
-%% Hyperlinking
-\RequirePackage[colorlinks=true, allcolors=blue]{hyperref}
-
 %% Set up main title page fonts
 \newcommand{\headerfont}{\normalfont\sffamily\fontsize{7}{9} \selectfont}
 \newcommand{\footerfont}{\normalfont\sffamily\fontsize{7}{9} \selectfont}
@@ -71,8 +68,6 @@
 \newcommand{\keywordsfont}{\normalfont\rmfamily\fontsize{7}{10}\selectfont}
 \newcommand{\copyrightfont}{\normalfont\rmfamily\fontsize{6}{8}\selectfont}
 
-%% Set URL link color & font
-\renewcommand\UrlFont{\color{black}\sffamily}
 
 %% Author and affiliation
 \RequirePackage{authblk}
@@ -695,6 +690,10 @@ THE ABSTRACT\vskip12pt}\let\go\relax\fi
   \hrule
   \end{@widetext*}
 }
+
+%% Hyperlinking (loaded last, after all other packages)
+\RequirePackage[colorlinks=true, citecolor=blue, linkcolor=black, urlcolor=black, filecolor=black, hyperfootnotes=false]{hyperref}
+\renewcommand\UrlFont{\sffamily}
 
 %% For backward compatibility; does nothing
 \def\pnasbreak{}

@@ -1,0 +1,505 @@
+\documentclass[12pt]{article}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage[margin=1in]{geometry}
+\usepackage{lmodern}
+\usepackage{hyperref}
+\usepackage{xcolor}
+\usepackage{framed}
+
+\hypersetup{hidelinks}
+
+% Paragraph spacing instead of indent
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{6pt plus 2pt minus 1pt}
+
+% Reviewer quote environment using framed
+\definecolor{quotebarcolor}{gray}{0.5}
+\definecolor{quotebg}{gray}{0.97}
+\newenvironment{reviewquote}{%
+  \def\FrameCommand{{\color{quotebarcolor}\vrule width 2pt}\colorbox{quotebg}}%
+  \MakeFramed{\advance\hsize-\width \FrameRestore}%
+  \small
+}{%
+  \endMakeFramed
+}
+
+% Section summary (italic note after section/subsection heading)
+\newcommand{\sectionnote}[1]{\par\smallskip\textit{#1}\par\medskip}
+
+\setcounter{secnumdepth}{3}
+
+\title{\textbf{Note on the Previous Round of Reviews}}
+\author{}
+\date{}
+
+\begin{document}
+\maketitle
+
+This document accompanies the cover letter for this resubmission. The manuscript was previously reviewed at PNAS. Below, we reproduce the full text of the anonymous reviewer comments, organized by specific concern, and describe the changes made in response to each. We also note explicitly where concerns may remain open in our current submission.
+
+\bigskip
+\hrule
+\bigskip
+
+%% ============================================================
+\section{Framing and Theoretical Positioning}
+
+This section addresses concerns about the cascade/network framing of the title and paper, the mechanistic account linking gratitude to two distinct outcome sets, the breadth of motivational framing, and the scope of extrapolation from findings. The major changes are a revised title, removal of cascade/contagion language, separate mechanistic accounts for each outcome set, and broadened motivational framing beyond indirect reciprocity.
+
+%% ------------------------------------------------------------
+\subsection{Network and Cascade Framing in the Title and Research Questions}
+
+\sectionnote{Three related concerns: the title implies multi-wave network diffusion that the study cannot show; the word ``four experiments'' in the title implies separate analyses rather than a pooled design; and a reference to un-analyzed ``downstream thanks'' network data in the original text was unresolved.}
+
+\begin{reviewquote}
+``The title, key research questions (see first sentence) and framing of the paper are about how gratitude spreads through networks. That makes the reader expect to see, well, how gratitude spreads through the network. But you end at the first node. Can you either trace the spreading through a network analysis (which would be powerful!), or change the positioning? I would also not motivate the study with the `why' questions, since you do not get at mechanisms.'' \textit{(Reviewer 1)}
+\end{reviewquote}
+
+\begin{reviewquote}
+``The title suggests these were four experiments; however, the main analysis and much of the interpretation focuses on a set of single, pooled estimates of treatment effects (consistent with the pre-registration). Perhaps this should be clarified and/or revised to ensure consistency between the title, design, analysis, and interpretation?'' \textit{(Reviewer 1)}
+\end{reviewquote}
+
+\begin{reviewquote}
+``[The final sentence] refers to data collected regarding \textit{the network structure of downstream thanks}. (How) Was this network data used in the analysis presented here? Is the network structure data the basis of the claims regarding the proportion of downstream thanks that were purely reciprocal? This should be resolved somehow.'' \textit{(Reviewer 1)}
+\end{reviewquote}
+
+\textbf{Response.} The title has been changed to \textit{``How thanking peers sustains volunteer participation in public goods: parallel field experiments in four Wikipedia language communities''}, removing any implication of tracing multi-wave network diffusion. Terms such as ``cascade,'' ``spread,'' and ``network diffusion'' have been removed from the body text and section headings throughout the manuscript, replaced with more precise descriptions of upstream reciprocity effects. The claim about the proportion of upstream vs.\ reciprocal thanks is now grounded explicitly in the recipient-level data described in the Materials and Methods and the second-generation thanks descriptive analysis in the Supporting Information (SI; Tables S9--S10), rather than invoking unanalyzed network structure data. The Discussion (paragraph 3) now explicitly states that this study cannot support claims about cascades or multi-wave contagion and acknowledges multi-wave network analysis as a direction for future work.
+
+\textbf{What we did not do.} We did not add a network analysis tracing multi-wave diffusion or treatment effect persistence because (1) the study was not designed for this purpose, and (2) we did not collect data to measure second-order network effects. The SI acknowledges this as a valuable direction for future work.
+
+\bigskip\hrule\bigskip
+
+%% ------------------------------------------------------------
+\subsection{Two Distinct Outcome Sets Require Separate Mechanistic Accounts}
+
+\sectionnote{Two quotes press for clearer separation of mechanisms: one from Reviewer 2 asking for distinct mechanistic accounts for PG contributions vs.\ thanks-sending; one from Reviewer 2 noting the framing opportunity to center the study on effects of receiving gratitude rather than cascades.}
+
+\begin{reviewquote}
+``The introduction and motivation of your study is too vague and disconnected from what you are testing. You spend a lot of time talking about constructs and differences (e.g., upstream/downstream/backward reciprocity) that are only remotely relevant for your study. Instead, I encourage you to trace out more clearly the difference between how gratitude might affect direct PG contributions (your labor hours and retention DVs), vs how it might affect the propensity to give gratitude to others. Those are fundamentally different endpoints and mechanisms. For instance, the self-efficacy argument that learning about the value of my past edit makes me more motivated to give gratitude to others seems like a stretch. \ldots\ it would be powerful if you could lay out the key mechanisms behind each set of DVs in the beginning, and especially think about why getting gratitude would motivate people to give gratitude.'' \textit{(Reviewer 2)}
+\end{reviewquote}
+
+\begin{reviewquote}
+``The comparison to public displays of appreciation and recognition is interesting\ldots\ What I am saying means you would have to fundamentally change the positioning of your study in the literature. But I think that is an opportunity to get to the core of your study (not cascades, not answering the `why' questions you mention, but rather: the effects of getting gratitude on these two sets of outcomes).'' \textit{(Reviewer 2)}
+\end{reviewquote}
+
+\textbf{Response.} The Introduction now explicitly lays out separate mechanisms for each outcome set (paragraphs 3--4; see also Fig.\ 1 on reciprocity structures). Public goods contribution outcomes (labor hours, retention) are linked to self-efficacy (where receiving a specific, targeted thank-you provides independent information on the quality and utility of one's contributions, increasing belief in one's ability to sustain valuable work) and to positive affect mechanisms. The thanks-sending outcome is linked to emotional contagion, social norm salience (receiving a message about appreciation makes the practice visible to people who may not have known about it), and upstream reciprocity theory (Nowak \& Roch 2007). The Introduction now explicitly addresses why receiving thanks would motivate giving thanks to third parties rather than simply increasing editing effort. The Discussion (paragraph 4) also explains why self-efficacy alone does not fully account for upstream thanking.
+
+\bigskip\hrule\bigskip
+
+%% ------------------------------------------------------------
+\subsection{De-centering Indirect Reciprocity as the Primary Motivational Account}
+
+\begin{reviewquote}
+``I would re-think the centrality of reciprocity and rational market exchange logic (`the expectation that they will receive benefits from others in the group', `system of indirect exchange'). This seems unfounded --- from all we know, people are motivated by a much wider variety of motives in this context (learning, community, altruism, etc.).'' \textit{(Reviewer 2)}
+\end{reviewquote}
+
+\textbf{Response.} The Introduction now broadens the motivational framing to acknowledge positive affect, self-efficacy, emotional contagion, and social norm salience alongside reciprocity (Introduction, paragraphs 3--4). Indirect reciprocity is presented as one component of a wider motivational structure rather than the primary mechanism. Market-exchange language (``system of indirect exchange'') has been removed.
+
+\bigskip\hrule\bigskip
+
+%% ------------------------------------------------------------
+\subsection{Connecting to the Broader Collective Action and Public Goods Literature}
+
+\begin{reviewquote}
+``The study is motivated around questions about generosity, gratitude, and reciprocity in cooperation. This is compelling, however, the initial presentation of results as well as the discussion and interpretation provided in the paper focus on the results' significance for public goods production and specifically Wikipedia production. The text should do more to draw more general conclusions in line with the general body of work and concerns used to motivate the study. A noteworthy set of omissions in the presentation of this work include prior studies of the effects of positive feedback, social comparisons, and status awards on contributions to (online) public goods, group-generalized exchange, and collective action.'' \textit{(Reviewer 1)}
+\end{reviewquote}
+
+\textbf{Response.} The Discussion section has been expanded to connect findings to collective-action frameworks and indirect reciprocity models. The paper already cited Gallus (2016) and Restivo \& van de Rijt (2012) as prior work on reputation and indirect reciprocity in Wikipedia; the Discussion now explicitly connects the current findings to those frameworks rather than treating them as separate streams.
+
+\bigskip\hrule\bigskip
+
+%% ------------------------------------------------------------
+\subsection{Scope of Extrapolation from Study Findings}
+
+\begin{reviewquote}
+``The authors might also note that such extrapolation is, by necessity, beyond the scope of the study and long term or large scale interventions could have different effects.'' \textit{(Reviewer 1)}
+\end{reviewquote}
+
+\textbf{Response.} The Discussion (paragraph 1) now qualifies the extrapolation about retaining ``thousands of contributors a year,'' noting that long-term or large-scale interventions may produce different effects and that such projection extends beyond what this study can directly support.
+
+\bigskip\hrule\bigskip
+
+%% ============================================================
+\section{Statistical Methods and Analysis}
+
+This section addresses concerns about the primary analysis strategy, statistical models, and outcome variable operationalization. The major changes are: dropping CACE in favor of ITT as the sole primary analysis (\S2.1), switching from a difference-in-differences labor hours measure to post-treatment Tweedie GLMM (\S2.3), and providing SI justification for labor hours over edit count/quality (\S2.4).
+
+%% ------------------------------------------------------------
+\subsection{CACE, Selection Bias, and ITT as Primary Analysis}
+
+\sectionnote{Two quotes raise the same core concern from different angles: Reviewer 2 flags selection bias from volunteer discretion and recommends ITT; Reviewer 1 flags that ``compliance'' is used inconsistently across the pre-registration and manuscript. Both are resolved by dropping CACE and removing the compliance framing.}
+
+\begin{reviewquote}
+``Your volunteers who were delivering the thanks were able to look at the individuals (and their edits) in the treatment group, and then decided whether or not to actually give the thanks. I'm afraid that opens the gate to selection bias, which is a major concern as it threatens the internal validity of your study. The non-compliance is complex and impossible to account for, as it may be on the side of the person supposed to get the thanks, on the side of the person supposed to give the thanks, or it may be at their intersection\ldots\ I think you have to fall back on the intent-to-treat analysis, which is actually also what is in the pre-registration.'' \textit{(Reviewer 2)}
+\end{reviewquote}
+
+\begin{reviewquote}
+``The meaning of `compliance' shifts between the pre-registration and the manuscript. In the pre-registration, it was anticipated to correspond to completing the post-intervention survey. However, the survey response rate seems to have been so low that the survey data was dropped\ldots\ I wonder whether the use of `compliance' in the main text is really appropriate and clear given that the people who did the actual complying were those delivering the initial `thanks' and not the target participants of the intervention at all?'' \textit{(Reviewer 1)}
+\end{reviewquote}
+
+\textbf{Response.} The ITT is now the sole primary analysis; CACE estimates have been dropped from the main text entirely. The Materials and Methods section explicitly states: ``The pre-registration also included an analysis to estimate the Complier Average Causal Effect (CACE). We decided to drop this analysis due to the potential selection bias introduced by preferences among volunteers for the kinds of edits they chose to thank.'' The manuscript no longer uses ``compliance'' to describe study participants. The ITT framing accounts for volunteer selection naturally by design.
+
+\bigskip\hrule\bigskip
+
+%% ------------------------------------------------------------
+\subsection{Labor Hours: Clarification of the 430-Second Figure}
+
+\begin{reviewquote}
+``I believe your interpretation of Geiger and Halfaker may not have been correct. They seem to have imputed 430 seconds for the duration of single-edit sessions, whereas you used it as a lower-bound cutoff for the minimum session time you consider.'' \textit{(Reviewer 2)}
+\end{reviewquote}
+
+\textbf{Response.} The description of the 430-second figure has been clarified in the Materials and Methods (labor hours paragraph). The paper now specifies that 430 seconds serves as the minimum duration attributed to single-edit sessions, consistent with Geiger \& Halfaker's (2013) imputation methodology. Additional context on why labor hours is a more appropriate effort measure than edit count or edit quality is now provided in the SI (Labor Hours Analysis section, ``Rationale for Labor Hours as the Primary Effort Outcome''; see also \S2.4).
+
+\bigskip\hrule\bigskip
+
+%% ------------------------------------------------------------
+\subsection{Outcome Variable and Model Specification for Labor Hours}
+
+\sectionnote{Two quotes address the labor hours specification: Reviewer 2 requests post-treatment hours rather than a difference measure; Reviewer 2 also requests clearer model explanation covering strata fixed effects, volunteer/wave FEs, and the matched-pair design rationale.}
+
+\begin{reviewquote}
+``It would be helpful to show the results on just the post-intervention labor hours, not the difference measure.'' \textit{(Reviewer 2)}
+\end{reviewquote}
+
+\begin{reviewquote}
+``Please also explain your model more clearly. E.g., it seems like you include strata fixed effects, but I only really understood that when looking at the pre-registration. I wondered if you would need volunteer and wave FEs. Later on, I saw that this was a matched pair design. I know there is ongoing discussion about what is the appropriate analysis strategy in these cases --- I would find it helpful to hear more on that (e.g., Bai et al.\ 2021. Inference in Experiments with Matched Pairs).'' \textit{(Reviewer 2)}
+\end{reviewquote}
+
+\textbf{Response.} The outcome variable has been changed from a difference-in-differences measure to post-treatment labor hours per day. We replaced the pre-registered DiM model with a Tweedie GLMM, which better fits the zero-inflated, right-skewed distribution of labor hours per day. The Materials and Methods section explains the diagnostic rationale: residuals from the original DiM specification showed severe non-normality and heteroscedasticity (Figure S6); the Tweedie GLMM passes all DHARMa diagnostics (Figure S7). Full model coefficients are in Table S8. The matched-pair design is now explained with a citation to Bai (2017), who shows that matched-pair designs achieve maximum asymptotic precision for the difference-in-means estimator. Strata fixed effects (block random intercepts) are explained in the Methods. However, volunteer and wave fixed effects were not added to our models: the matched-pair design addresses the primary source of variance, and volunteer-level fixed effects raise endogeneity concerns given the small volunteer pool (n = 313) and the volunteer selection dynamics described in \S2.1. All deviations from the pre-registration are documented in Materials and Methods.
+
+\bigskip\hrule\bigskip
+
+%% ------------------------------------------------------------
+\subsection{Edit Count and Edit Quality as Robustness Checks}
+
+\begin{reviewquote}
+``Two additional measures similar to the labor/effort DV that I am surprised the authors did not include in their analysis are subsequent edit count and subsequent edit quality (perhaps measured using the same ORES revision scoring system used to determine editor eligibility for the study).'' \textit{(Reviewer 1)}
+\end{reviewquote}
+
+\textbf{Response.} These robustness checks were not added because (1) they would be post-hoc exploratory analyses beyond the pre-registered scope, (2) we did not have clean edit count and quality data at hand for all four language communities, and (3) cleaning these data would require extra work beyond the scope of the current paper; more importantly, (4) labor hours is a more statistically robust measure of contribution effort: edit count treats a one-sentence correction identically to a multi-hour article expansion, and ORES edit quality scores are language-specific binary classifiers not designed for cross-linguistic comparison as a continuous outcome variable. A justification for the choice of labor hours over these alternatives is now provided in the SI (Labor Hours Analysis section, ``Rationale for Labor Hours as the Primary Effort Outcome''). Edit count and quality robustness checks are acknowledged as a direction for future work in the Discussion (final paragraph).
+
+\bigskip\hrule\bigskip
+
+%% ============================================================
+\section{Methodological Clarifications}
+
+\sectionnote{This section addresses reviewer requests for more precise operationalization of key measures and sampling procedures. Key additions: full sliding-window description for two-week retention (\S3.1), explicit namespace/activity scope for ``active contribution'' (\S3.2), confirmation that participants could not be enrolled in multiple waves (\S3.3), characteristics of the 284 dropped pairs (\S3.4), a complete pre-registration deviation log (\S3.5), a description of the per-community consent process (\S3.6), and an explanation of the cross-language implementation choices that determined per-community sample sizes and subgroup allocation (\S3.7).}
+
+%% ------------------------------------------------------------
+\subsection{Two-Week Retention: Operationalization and Window Logic}
+
+\sectionnote{Two quotes from Reviewer 2 flag the same ambiguity: the label ``two-week retention'' does not clearly convey the sliding five-week observation window, the omission of week 1, or whether the clock starts at randomization or thanks delivery.}
+
+\begin{reviewquote}
+``Two-week retention: the label is confusing --- the variable seems to capture whether someone remained active from weeks 2 to 6 inclusive after the randomization. (Or was it after the delivery of the thanks?) Please be more precise. Does that mean you ignore what happens in week 1? If so, why?'' \textit{(Reviewer 2)}
+\end{reviewquote}
+
+\begin{reviewquote}
+``Here are two parts where it gets mentioned in more detail, which I found confusing: `Two-week retention is a binary variable that records whether someone was an active contributor to Wikipedia in the second week of the observation period. [But then it says:] In our measure, which uses a sliding observation window, someone has stopped contributing by the second week if they take no actions in the five weeks after the second week begins.'\,'' \textit{(Reviewer 2)}
+\end{reviewquote}
+
+\textbf{Response.} The Materials and Methods section (paragraph 8) now provides a full operationalization of the two-week retention measure. The measure records whether a participant made at least one edit during the post-treatment observation period, measured from the second week onwards. The first week is omitted because we want to know whether the contributor was still active after the first week of observation concluded. The measure also includes a window of observation beyond the end of the second week: if someone comes back to edit later, we consider them still active in their second week. The measurement period, therefore, starts at the beginning of the second week after random assignment and extends five more weeks (42 days total), so that contributors who edit only every few weeks are not incorrectly classified as having stopped contributing. If a participant makes no contributions in the five-week window, they are classified as having stopped contributing. For pairs that did not receive thanks, the six-week observation period begins from the date of random assignment.
+
+\bigskip\hrule\bigskip
+
+%% ------------------------------------------------------------
+\subsection{Active Contribution: Definition and Namespace Scope}
+
+\begin{reviewquote}
+``What counts as `active' --- any edit, including of my own profile? Or just edits to articles? Does it include or exclude edits to discussion pages? Other namespaces? I assume that giving thanks does not count as `active'? More detail is needed.'' \textit{(Reviewer 2)}
+\end{reviewquote}
+
+\textbf{Response.} The Materials and Methods section (paragraph 8) now specifies that: (1) giving thanks does not count as an active contribution; (2) user-page edits are excluded; (3) only article-space and eligible namespace edits meeting the language-specific ORES or flagged-revision criteria used for participant selection are counted. The labor hours measure is computed from these same eligible contributions and does not include time spent thanking others (Materials and Methods, paragraph 9).
+
+\bigskip\hrule\bigskip
+
+%% ------------------------------------------------------------
+\subsection{Rolling Sampling and Multiple-Eligibility Risk}
+
+\sectionnote{Two quotes from Reviewer 1 raise the same concern: rolling eligibility could result in the same account being sampled multiple times, and the manuscript should clarify whether this occurred and whether any analytic adjustment is needed.}
+
+\begin{reviewquote}
+``The sampling criteria for newcomer and experienced accounts seem reasonable enough, though I wasn't sure whether this kind of rolling eligibility and sampling might put some accounts at risk of being selected into the study multiple times.'' \textit{(Reviewer 1)}
+\end{reviewquote}
+
+\begin{reviewquote}
+``It would be helpful if the manuscript could clarify the sampling details along these lines. If multiple/selective/truncated eligibility did occur, the authors should also address whether any adjustments should be made to the analysis in response.'' \textit{(Reviewer 1)}
+\end{reviewquote}
+
+\textbf{Response.} The Sampling Criteria subsection of Materials and Methods clarifies that once an account was randomly assigned to any study condition in any wave, it was not re-entered in subsequent waves. The multi-wave structure was used solely to reach sample size targets by enrolling fresh newcomer cohorts across waves, not to re-sample the same population. No participant was randomized more than once.
+
+\bigskip\hrule\bigskip
+
+%% ------------------------------------------------------------
+\subsection{The Dropped Observations}
+
+\begin{reviewquote}
+``You ended up dropping 284 observations. Please add data in the appendix about the characteristics of those who got dropped, by experimental arm, and show the results before dropping those observations.'' \textit{(Reviewer 2)}
+\end{reviewquote}
+
+\textbf{Response.} Table S5 in the SI (Robustness to Participant Exclusions) reports ITT estimates both before and after excluding the 284 participants (142 matched pairs). Point estimates, standard errors, and p-values are consistent across both samples, confirming the exclusions do not materially affect conclusions. The SI text explains the exclusion reasons: account deletion before thanks were sent, software errors causing multiple thanks, or post-debriefing opt-out requests. These are protocol-level exclusions of entire matched pairs, not post-hoc removal of individual outcomes.
+
+\bigskip\hrule\bigskip
+
+%% ------------------------------------------------------------
+\subsection{Pre-Registration Deviations and Excluded Subgroups}
+
+\sectionnote{Two quotes raise complementary concerns: Reviewer 2 requests a systematic account of all deviations from the pre-registration; Reviewer 1 questions the exclusion logic for experienced Arabic/German editors, finding the power-analysis justification implausible for German Wikipedia's large size.}
+
+\begin{reviewquote}
+``Please provide information on where you deviated from the pre-registration (the DVs you focus on, how they were operationalized, what model you used). Two specific questions: i.\ You had pre-registered separate analyses for newcomers and experienced editors, but the manuscript now centrally discusses the pooled results. ii.\ You ended up dropping 284 observations.'' \textit{(Reviewer 2)}
+\end{reviewquote}
+
+\begin{reviewquote}
+``Persian Wikipedia newcomers, experienced Arabic Wikipedia editors, and experienced German Wikipedia editors are all excluded from the study. The pre-registration attributes this to the results of a power analysis. However, the main text only mentions the exclusion of the Persian newcomers\ldots\ it is difficult to accept that a power analysis would have excluded experienced editors from one of the largest Wikipedia language editions by number of active editors (German).'' \textit{(Reviewer 1)}
+\end{reviewquote}
+
+\textbf{Response.} Pre-registration deviations are documented explicitly in the Materials and Methods section. Deviations include: (a) shift from separate newcomer/experienced primary analyses to a pooled primary estimate with subgroup results in Tables S6--S7; (b) change in labor hours operationalization from difference-in-differences to post-treatment hours per day; (c) model change from DiM to Tweedie GLMM (with diagnostic rationale, Figures S6--S7); (d) CACE analysis dropped due to selection bias (\S2.1). The power analysis paragraph in the Materials and Methods now states minimum detectable effects explicitly: an additive increase of 0.25 hours per day in labor hours, a 25\% relative increase in two-week retention, and an average of 0.1 additional thanks sent per participant.
+
+The exclusion of experienced contributors in Arabic and German Wikipedia and of newcomers in Persian Wikipedia was determined by the volunteer-thanking-capacity constraint that bounded enrolment in each community, the community-specific eligibility windows, and the pragmatic subgroup-allocation decisions our liaisons made on the basis of community context. Specifically, German experienced editors were excluded because insufficient volunteers could be recruited to thank an experienced cohort large enough to power a separate estimate, and Persian newcomers were excluded both because of low Persian newcomer-account activity during the study period and because the community's 540-day eligibility window was incompatible with the 90-day newcomer criterion. The full per-community rationale, including a placement of these decisions alongside the shared eligibility criteria and the volunteer-capacity constraint, is set out in a new SI section, \textit{Cross-Language Implementation}, and summarised in \S3.7 of this letter.
+
+\bigskip\hrule\bigskip
+
+%% ------------------------------------------------------------
+\subsection{Community Consent and Governance}
+
+\begin{reviewquote}
+``The first paragraph of the Materials and Methods section on p.~3 of the main text includes the phrase: `Each language Wikipedia consented to participate.' Could the authors (perhaps in the supplement?) explain what this means and how it was done in a little more detail somewhere?'' \textit{(Reviewer 1)}
+\end{reviewquote}
+
+\textbf{Response.} The main-text Methods sentence has been revised to read \textit{``The relevant governance entities for each language Wikipedia consented to participate (see Supporting Information, Community Consent and Governance)\ldots''}, and a new SI section, \textit{Community Consent and Governance}, sets out the per-community process. Each language Wikipedia has its own governance structure, and we tailored consent to each community's organisational form in consultation with our community liaisons. The single common step across all four communities was a public description of the research design on the language-specific \emph{Village Pump} (the standing forum for community-affecting proposals), with an open invitation for feedback prior to the experiment; the public research description is hosted on Meta-Wiki (\url{https://meta.wikimedia.org/wiki/Research:Testing_capacity_of_expressions_of_gratitude_to_enhance_experience_and_motivation_of_editors}) and on the Citizens and Technology Lab project page (\url{https://citizensandtech.org/research/how-do-wikipedians-thank-each-other/}). Beyond this Village Pump consultation, additional consent steps differed by community: the board of the Polish Wikimedia Chapter (a non-profit recognised by the Wikimedia Affiliations Committee) voted to support the study; the Wikimedia Deutschland chapter did not hold a formal vote but supported the work through the two German liaisons, who were chapter employees; in Arabic Wikipedia, where governance operates through usergroups recognised by the Affiliations Committee rather than through a single chapter, our Arabic liaison consulted members of these usergroups; and in Persian Wikipedia, where no chapter or usergroup with a formal consent role was active during the study period, consent was obtained through the Village Pump consultation alone. Only Polish involved a formal board vote; the three other communities followed the consent process their liaisons judged most appropriate.
+
+\bigskip\hrule\bigskip
+
+%% ------------------------------------------------------------
+\subsection{Cross-Language Implementation}
+
+\sectionnote{Two reviewer comments call for a clearer single-place explanation of how the four parallel experiments were implemented and what cross-community variation is design-driven rather than substantive: Reviewer 2 on the vetting process and external validity, and Reviewer 2 on cross-country implementation differences.}
+
+\begin{reviewquote}
+``Your vetting process of \textbf{who made it into the sample} will matter for external validity. It would be good to expand on that more carefully. You talk about this at two or even three points in the paper, and I interpreted some of these passages differently. It would help to lay it out once and very clearly.'' \textit{(Reviewer 2)}
+\end{reviewquote}
+
+\begin{reviewquote}
+``I initially thought that the cross-country evidence would be another feature to delve into, but I think you were right to not brush it up since there were so many differences in the implementation and you would also run into power issues---it does offer food for thought for the future!'' \textit{(Reviewer 2)}
+\end{reviewquote}
+
+\textbf{Response.} A new SI section, \textit{Cross-Language Implementation}, lays out in one place how the four parallel experiments were implemented and what cross-community variation is design-driven rather than substantive. It documents three things. (i)~\emph{Shared eligibility and treatment for comparability}: in all four communities, eligibility for being thanked was based on Wikipedia-wide quality signals---ORES good-faith scores in Arabic, Persian, and Polish (Table~S3) and the editor-assigned ``flagged revision'' status in German---rather than on community-specific judgments of merit; the minimum activity threshold of at least four eligible contributions was identical across communities; and the treatment itself (one private Thanks message via Wikipedia's standard feature) was identical across communities. Only the lookback window differed (90~days in Arabic, German, and Polish; 540~days in Persian, requested by the Persian liaisons to accommodate the larger fraction of intermittent contributors in their community). (ii)~\emph{Volunteer-thanking capacity as the binding enrolment constraint}: because the treatment was delivered by community volunteers reviewing eligible edits in the Superthanker software, the maximum study size in each community was bounded by the cumulative thanking capacity of the recruited volunteer pool, not by the size of the eligible population. In practice, thanks-sending was highly concentrated among a small group of unusually active volunteers (``superthankers''), and we therefore actively recruited additional dedicated volunteers in each community to meet the pre-registered sample-size targets; per-community thanker descriptive statistics are reported in a new SI table (Table~S2). (iii)~\emph{Per-community subgroup allocation as a pragmatic, liaison-guided choice}: the asymmetric allocation of newcomer- versus experienced-subgroup capacity across communities (1{,}750 newcomers in Arabic, 3{,}000 in German, 800 newcomers and 2{,}400 experienced contributors in Polish, and 2{,}400 experienced contributors in Persian) was not determined by cultural, linguistic, or geographic considerations but by three pragmatic factors discussed with each community's liaisons during the consent process: recruited volunteer thanking capacity, community judgements about which subgroup would benefit most from the intervention, and the availability of eligible participants meeting the inclusion criteria. The exclusion of experienced contributors in Arabic and German Wikipedia reflected insufficient recruited volunteer capacity to thank an experienced cohort large enough to power a separate estimate; the exclusion of newcomers in Persian Wikipedia reflected both low Persian newcomer-account activity during the study period and the incompatibility of the 540-day Persian eligibility window with the 90-day newcomer definition. In every community, the focal subgroup was therefore the one for which adequate power, volunteer capacity, and community interest aligned.
+
+\bigskip\hrule\bigskip
+
+%% ============================================================
+\section{Supplementary Materials and Documentation}
+
+\sectionnote{This section addresses reviewer requests for additional materials beyond the pre-registered scope. Key additions: a balance table (\S4.1), a CONSORT flow diagram (\S4.2), speculative cross-language commentary placed in the caption of Table~S7 (\S4.3), a translated UI description (\S4.4), acknowledgment of structural constraints on thanks direction (\S4.5), acknowledgment of the substitution effect (\S4.6), a clarification of why the study does not speak to costly signaling (\S4.7), and a full second-generation thanks descriptive analysis with spillover adjustment (\S4.8).}
+
+%% ------------------------------------------------------------
+\subsection{Balance Table and Descriptive Information}
+
+\sectionnote{Two quotes request more descriptive SI content: Reviewer 1 requests descriptive statistics, full model results, and possibly first-stage models; Reviewer 2 requests the pre-registered balance table with pre-study DVs included.}
+
+\begin{reviewquote}
+``Additional descriptive information about the samples, the treatment and control groups, the variables, and full results for all models (perhaps including the first-stage models?) would be helpful to provide in the SI.'' \textit{(Reviewer 1)}
+\end{reviewquote}
+
+\begin{reviewquote}
+``Please present a balance table as it was announced in the pre-registration (Previous Experience categorical variable, email notification setting, etc.). I would importantly also add information related to your focal DVs, like pre-study labor hours, thanks sent and thanks received.'' \textit{(Reviewer 2)}
+\end{reviewquote}
+
+\textbf{Response.} Table S4 (Randomization Balance) reports pre-study labor hours per day, total labor hours, thanks sent, thanks received, experience category, and language community, with Wilcoxon test p-values and standardized differences (Cohen's $d$). The SI text explains why all standardized differences below $|d| = 0.05$ indicate negligible imbalance, and why the large difference on thanks received is expected by design (it reflects treatment delivery). Full ITT results by subgroup (all, newcomers, experienced) are in Table S6; and results by language community are in Table S7.
+
+\bigskip\hrule\bigskip
+
+%% ------------------------------------------------------------
+\subsection{Experiment Stages Figure (CONSORT Diagram)}
+
+\begin{reviewquote}
+``It would be very helpful to include a Figure that lays out the stages of the experiment, including information about the waves, when and how the randomization happened, when the volunteers got to choose whom to actually thank, and when you measure the outcomes.'' \textit{(Reviewer 2)}
+\end{reviewquote}
+
+\textbf{Response.} A CONSORT-style flow diagram has been added as Figure S1 in the SI, placed at the front of the SI as a roadmap to the experiment's stages, wave structure, randomization timing, volunteer selection step, exclusions, and outcome measurement windows.
+
+\bigskip\hrule\bigskip
+
+%% ------------------------------------------------------------
+\subsection{Cross-Language Variation in Treatment Effects}
+
+\begin{reviewquote}
+``The decomposed estimates presented in Figure 2 suggest some substantially different point estimates and variance across the treatment effects observed in the different language/experience subgroups. Many of these differences do not seem reducible simply to variations in sample size. While it would not be appropriate to elaborate post-facto explanations of these differences, some (even speculative) comments on the variations seem merited.'' \textit{(Reviewer 1)}
+\end{reviewquote}
+
+\textbf{Response.} Speculative commentary on cross-language variation has been added to the caption of Table~S7 (full ITT estimates by language edition) rather than to the main Discussion. The expanded caption now lists four plausible post-hoc sources of the observed variation---differences in volunteer dosage (31\% of newcomers vs.\ 43\% of experienced accounts actually received thanks, with further variation by community), differences in active-editor community size, community-specific calibration of the ORES good-faith classifier and the German flagged-revision criterion, and newcomer-versus-experienced socialization dynamics---and explicitly frames these as post-hoc speculation rather than confirmatory inference, since this study was not designed to formally test cross-language heterogeneity. We placed this commentary in the caption rather than the Discussion to keep it co-located with the table readers are examining when the variation becomes visible.
+
+\bigskip\hrule\bigskip
+
+%% ------------------------------------------------------------
+\subsection{User Interface Description}
+
+\begin{reviewquote}
+``A full description of the user interface is included in the materials and methods repository. However, the document linked in the footnote (the pre-analysis plan) does not include any such description. The SI includes a screenshot of the interface in German (without translation). Maybe the text of the paper should be revised? Maybe the footnote should point to the supplement instead of the pre-registration materials? Maybe the supplement should incorporate `a full description of the interface'?'' \textit{(Reviewer 1)}
+\end{reviewquote}
+
+\textbf{Response.} The footnote in the Materials and Methods now points to the SI and to the online repository (OSF), rather than to the pre-analysis plan. The SI includes a screenshot of the Superthanker software in the German community version (Figure~S3) and an annotated walkthrough of the interface with English translations of all elements (Figure~S2), intended to be read as a single workflow across its panels rather than as independent images. Per-language URLs pointing to each community's ORES good-faith edit model documentation are inline in Table~S3 (next to each language name), so that readers can consult the underlying eligibility model for each Wikipedia language edition.
+
+\bigskip\hrule\bigskip
+
+%% ------------------------------------------------------------
+\subsection{Mechanical Explanation for Upstream Direction of Thanks}
+
+\begin{reviewquote}
+``Could the finding that thanks-recipients mostly give thanks to third parties (and not to the person who thanked them) be mechanic? The thanks have to be given for a specific edit, so it's quite possible that the person who gave the thanks does not have a recent edit that is a good candidate for a thanks.'' \textit{(Reviewer 2)}
+\end{reviewquote}
+
+\textbf{Response.} We can see how the original framing of our paper (which did not explain the three structures of reciprocity) might have misled readers to believe that we see second-order thanks as a choice where each contributor might have an equal chance of being thanked. We have updated the manuscript to explain the structural dimension of our question more clearly. Like the reviewer, we believe that the structure of upstream reciprocity on Wikipedia makes people likely to encounter contributions from people they have not previously helped, and that this is an important reason that second-order thanks go to third parties. The Discussion (paragraph 3) now frames this explicitly: gratitude has been described in prior research as a ``moral barometer'' (McCullough et al.\ 2001) that follows the receipt of benefits, signaling a sense of obligation to the giver; in public goods and systems of indirect reciprocity, where contributors routinely receive benefits from people they have not previously helped directly, appreciation would follow the indirect or upstream structure of exchange rather than flow back to the specific person who thanked them. Our second-generation thanks analysis (SI, Tables~S9--S12) is consistent with this pattern.
+
+\bigskip\hrule\bigskip
+
+%% ------------------------------------------------------------
+\subsection{Substitution Effect}
+
+\begin{reviewquote}
+``It is possible that a thanking campaign produces a `substitution effect' whereby editors devote more of their (otherwise identical) time spent working on Wikipedia to thanking each other than to engaging in other activities.'' \textit{(Reviewer 1)}
+\end{reviewquote}
+
+\textbf{Response.} The Discussion (paragraph 5) now addresses this concern directly. Because our labor hours measure focuses on contributions to pages and explicitly excludes time spent thanking others (see Materials and Methods), any within-session reallocation from editing toward thanking would, if anything, cause us to underestimate the treatment effect on total contribution effort rather than mistake thanking time for editing time. We therefore note in the Discussion that a more inclusive measure---one that counted time spent thanking as part of contribution effort---could have yielded a larger estimated effect on labor hours. This framing treats the reviewer's substitution-effect concern as a reason our labor hours estimate is conservative rather than inflated.
+
+\bigskip\hrule\bigskip
+
+%% ------------------------------------------------------------
+\subsection{Costly Signaling and the Cost of the Thanks Intervention}
+
+\begin{reviewquote}
+``The comparison to public displays of appreciation and recognition is interesting. You mention that reputation as a mechanism is thus shut off. You may also want to consider two other major differences: your thanks intervention is targeted to one specific edit that a person has made, while most public appreciation and recognition is broader in its purview. The thanks intervention required almost zero time (click of a button), whereas other forms of appreciation can be costlier for the giver (crafting a statement) --- if we believe in the theory of costly signaling, this means that we are probably looking at lower bound estimates with your results.'' \textit{(Reviewer 2)}
+\end{reviewquote}
+
+\textbf{Response.} We considered this comment carefully but concluded that our study does not add empirical information to the literature on costly signaling. Although the thanks feature is indeed less costly for the sender than other forms of appreciation on Wikipedia (such as writing a barnstar message or posting on a user's talk page), we did not experimentally compare the thanks intervention against those more effortful alternatives, and more costly forms of appreciation on Wikipedia are also typically public, which changes multiple channels of signal at once. Without a design that isolates cost from publicness, we cannot make empirical claims about costly signaling from this study. We therefore did not add a costly-signaling discussion to the manuscript.
+
+\textbf{What we did not do.} We did not add a paragraph to the Discussion speculating that our estimates constitute a lower bound under costly-signaling theory. We agree with the reviewer that this is a theoretically plausible reading. The Discussion already notes several reasons our ITT estimates are conservative (volunteer skipping reduces effective dosage; labor hours excludes time spent thanking; spillover from treated to control participants attenuates the ITT---see SI Spillover Sensitivity Analysis). Comparing the relative cost of different appreciation mechanisms is a promising direction for future experimental work.
+
+\bigskip\hrule\bigskip
+
+%% ------------------------------------------------------------
+\subsection{Thanks Distribution and Second-Generation Thanks}
+
+\sectionnote{Five quotes address second-order thanks dynamics: Reviewer 1 asks how the unanalyzed ``network data'' was used; Reviewer 2 requests the distribution of thanks sent, treatment effect persistence, the lag between focal contribution and thanks receipt, and the raw data. All are addressed through a new descriptive SI section.}
+
+\begin{reviewquote}
+``The final sentence of the opening section of the main text refers to data collected regarding \textit{the network structure of downstream thanks}. (How) Was this network data used in the analysis presented here? Is the network structure data the basis of the claims regarding the proportion of downstream thanks that were purely reciprocal? This should be resolved somehow.'' \textit{(Reviewer 1)}
+\end{reviewquote}
+
+\begin{reviewquote}
+``Number of thanks: It would be nice to show in the appendix what the distribution looked like.'' \textit{(Reviewer 2)}
+\end{reviewquote}
+
+\begin{reviewquote}
+``Readers will wonder how long your treatment effects persist. Can you add that to the appendix?'' \textit{(Reviewer 2)}
+\end{reviewquote}
+
+\begin{reviewquote}
+``What was the distribution of the lag between the focal contribution and the receipt of thanks? (We know that feedback immediacy matters. If this lag was exogenous, I would propose exploring whether you see a moderation.)'' \textit{(Reviewer 2)}
+\end{reviewquote}
+
+\begin{reviewquote}
+``Can you please show the raw data?'' \textit{(Reviewer 2)}
+\end{reviewquote}
+
+\textbf{Response.} These analyses address reviewer concerns about the network data, distribution, lag, persistence, and raw data for thanks-sending behavior. They go beyond the pre-registered scope and are included in the SI to provide transparency about second-order dynamics.
+
+The ``network structure of downstream thanks'' referenced in the original manuscript text is the second-generation thanks data: thanks sent by study participants after receiving first-generation thanks. This data is now analyzed and reported in the SI rather than left as an unreferenced claim. Table S9 reports the distribution of thanks sent by group, language edition, and participant experience level, addressing the request for appendix distribution data and raw counts. Figures S8--S11 show weekly time series of first-generation thanks received, second-generation thanks sent by treated participants, thanks sent by control participants, and a treated-vs.-control comparison. Tables S10--S12 and Figures S12--S13 characterize second-generation thanks sender behavior, onset lag (Table S10: median 11--16 days from first-generation thanks receipt to first second-generation thanks sent, comparable across treatment and control groups), recipient patterns, and community circulation. Note: the SI reports the lag from first-generation thanks receipt to second-generation thanks sending; the lag between the focal edit and receipt of first-generation thanks (the reviewer's specific question about feedback immediacy) is not separately reported and is noted as a direction for future analysis. Tables S13--S14 report the indirect exposure rate (0.6\% of controls reached by second-generation thanks from verified treated senders) and a spillover-adjusted ITT following Gerber \& Green (2012). The spillover-adjusted estimate is 24\% larger than the standard ITT, confirming the standard ITT is a conservative lower bound. Treatment effect persistence beyond the six-week observation window is noted as a direction for future research because the current study design and data collection period do not support an extended follow-up analysis.
+
+\bigskip\hrule\bigskip
+
+%% ============================================================
+\section{Presentation and Minor Corrections}
+
+\sectionnote{This section addresses editorial and presentation concerns. Changes include clarified figure captions and standardized axis labels (\S5.1), resolved CACE/ATE terminology inconsistency (\S5.2), consistent IRR reporting (\S5.3), removal of a duplicate section heading (\S5.4), corrected typographical errors (\S5.5), moderated Wikipedia importance claims (\S5.6), and an explanation of the monthly-active vs.\ available-for-study discrepancy (\S5.7).}
+
+%% ------------------------------------------------------------
+\subsection{Figures and Tables: Acronyms, Error Bars, and Axis Labels}
+
+\sectionnote{Two quotes address figure and table presentation: Reviewer 2 requests defined acronyms, explained error bars, and consistent language naming; Reviewer 1 requests consistent Y-axis labels with units across all panels of Figure 2.}
+
+\begin{reviewquote}
+``The figures need better description. Acronyms should be explained. What do the error bars show? Also note that you used `fa', which I assume stands for Farsi, but otherwise refer to `Persian'. The same goes for the tables. E.g., Table S2 has asterisks but no legend to explain what they mean.'' \textit{(Reviewer 2)}
+\end{reviewquote}
+
+\begin{reviewquote}
+``The Y-axis labels for Figure 2 should be consistent and should clearly state the units (currently each axis is labeled in quite a different way and units only specified for Row C).'' \textit{(Reviewer 1)}
+\end{reviewquote}
+
+\textbf{Response.} Figure captions now explain that error bars represent 95\% confidence intervals. ISO 639-1 language codes (ar, de, fa, pl) are defined in figure and table captions, and ``fa'' is consistently labelled as Persian. Y-axis labels across all panels of Figure 2 have been standardized with consistent units. The reviewer's note about asterisks in ``Table~S2'' refers to the ORES good-faith model documentation table, which is now Table~S3 in the revised SI (a newly added thanker descriptive-statistics table occupies the Table~S2 slot). The asterisks in that ORES table failed to render correctly due to a technical formatting error; they have been replaced with direct URLs inline with each language name, linking to the corresponding ORES good-faith edit model documentation.
+
+\bigskip\hrule\bigskip
+
+%% ------------------------------------------------------------
+\subsection{CACE/CATE/ATE Terminology Inconsistency}
+
+\begin{reviewquote}
+``There's inconsistent usage at various points in the paper, tables, figures, and captions between CACE, CATE, and ATE.'' \textit{(Reviewer 1)}
+\end{reviewquote}
+
+\textbf{Response.} The paper now uses ITT terminology consistently throughout. CACE has been removed from the main text entirely (see \S2.1). All tables, figures, and captions in the main text use ``ITT'' or ``difference-in-means'' as appropriate. The SI retains ``ATE'' (average treatment effect) as a column header in Table S1, which is consistent with the main text: ITT describes the analysis strategy (analyze by assignment regardless of receipt), while ATE is the estimand being estimated under that strategy. The two terms are complementary, and the SI caption defines ``ATE'' explicitly.
+
+\bigskip\hrule\bigskip
+
+%% ------------------------------------------------------------
+\subsection{IRR Reporting Consistency}
+
+\begin{reviewquote}
+``The text (p.\ 4) talks about how the effects on `thanks sent' can be transformed into an IRR, but neither the rest of the text nor Table 1, Table 2, nor Figure 2 seem to state whether subsequent results for this variable are in fact reported as IRRs or something else.'' \textit{(Reviewer 1)}
+\end{reviewquote}
+
+\textbf{Response.} Table 1 caption and the Results section now explicitly state that the negative binomial coefficient is reported as an incidence rate ratio (IRR) and expressed as a percentage change, (IRR $-$ 1) $\times$ 100, consistently throughout the text, tables, and figures.
+
+\bigskip\hrule\bigskip
+
+%% ------------------------------------------------------------
+\subsection{Duplicate Materials and Methods Section}
+
+\begin{reviewquote}
+``The main text includes two sections called `Materials and Methods' (see p.\ 3 and p.\ 5). One of these should probably be changed or removed.'' \textit{(Reviewer 1)}
+\end{reviewquote}
+
+\textbf{Response.} The duplicate heading has been removed. The paper now has a single Materials and Methods section.
+
+\bigskip\hrule\bigskip
+
+%% ------------------------------------------------------------
+\subsection{Unclear Terms and Typographical Errors}
+
+\begin{reviewquote}
+``What is `the psychology of pods'? What is `this science of cooperation'?'' \textit{(Reviewer 2)}
+\end{reviewquote}
+
+\begin{reviewquote}
+``There are several spelling mistakes (e.g., `that that' on the first page).'' \textit{(Reviewer 2)}
+\end{reviewquote}
+
+\textbf{Response.} ``The psychology of pods'' was a typographical error in the significance statement; corrected to ``the psychology of gratitude and reciprocity.'' Typographical errors (including duplicate words) are corrected throughout the paper.
+
+\bigskip\hrule\bigskip
+
+%% ------------------------------------------------------------
+\subsection{Wikipedia Importance Statements}
+
+\begin{reviewquote}
+``I would tone down the statements about the importance of Wikipedia (e.g., `the world's most consulted information source', the attempts at precisely quantifying its value).'' \textit{(Reviewer 2)}
+\end{reviewquote}
+
+\textbf{Response.} References to ``the world's most consulted information source'' and precise economic value quantification have been moderated from the Introduction.
+
+\bigskip\hrule\bigskip
+
+%% ------------------------------------------------------------
+\subsection{Monthly Active vs.\ Available for Study Discrepancy}
+
+\begin{reviewquote}
+``For Experienced, monthly active (3,884) $<$ available for study (12,837), but the reverse is true for Newcomers. Can you explain?'' \textit{(Reviewer 2)}
+\end{reviewquote}
+
+\textbf{Response.} ``Monthly active'' counts unique editors active in an average month; ``available for study'' is a cumulative count across all waves, each spanning up to 84 days over seven months. For experienced editors, the 540-day eligibility window means the same editor can qualify across multiple waves while still being counted once in the monthly active figure, so cumulative wave enrollment substantially exceeds the monthly snapshot. For newcomers, each wave captures a fresh cohort of newly created accounts, keeping cumulative enrollment closer to (or below) the running monthly total.
+
+\bigskip\hrule\bigskip
+
+\end{document}

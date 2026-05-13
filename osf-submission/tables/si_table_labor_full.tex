@@ -1,0 +1,26 @@
+\begin{table}[ht]
+\centering
+\small
+\caption{Full coefficient estimates from labor hours per day interaction models (Tweedie GLMM, log link), estimated separately for all participants, newcomers ($<$90 days old), and experienced contributors ($\geq$90 days old). All models include random intercepts for randomization blocks to account for the matched-pair design. \textit{Predictor} rows: \textit{Intercept} = baseline log-scale mean; \textit{TREAT} = main effect of treatment assignment; \textit{Pre-treatment labor hours per day} = covariate for pre-treatment activity (centered within subgroup); \textit{TREAT $\times$ Pre-treatment labor hours} = interaction term. \textit{\% change} is $(e^{\hat{\beta}} - 1) \times 100$, expressing the multiplicative effect on the original (non-log) scale.}
+\label{table:full_labor_perday}
+\begin{tabular}{llr@{\hskip 0.5em}lrl}
+\toprule
+\textbf{Subgroup} & \textbf{Predictor} & \multicolumn{2}{c}{\textbf{Estimate (\% change)}} & \textbf{SE} & \textbf{\textit{p}} \\
+\midrule
+All participants & Intercept & -6.04 &  & 0.05 & $<$0.0001 \\
+ & TREAT & 0.10 & (11.0\%) & 0.04 & 0.01 \\
+ & Pre-treatment labor hours per day & 2.49 &  & 0.11 & $<$0.0001 \\
+ & TREAT $\times$ Pre-treatment labor hours per day & 0.70 & (101.6\%) & 0.12 & $<$0.0001 \\
+\addlinespace
+Newcomers & Intercept & -6.69 &  & 0.08 & $<$0.0001 \\
+ & TREAT & 0.32 & (38.1\%) & 0.07 & $<$0.0001 \\
+ & Pre-treatment labor hours per day & 6.51 &  & 0.31 & $<$0.0001 \\
+ & TREAT $\times$ Pre-treatment labor hours per day & -1.34 & (-73.9\%) & 0.33 & $<$0.0001 \\
+\addlinespace
+Experienced & Intercept & -5.11 &  & 0.07 & $<$0.0001 \\
+ & TREAT & 0.02 & (2.4\%) & 0.06 & 0.66 \\
+ & Pre-treatment labor hours per day & 1.86 &  & 0.12 & $<$0.0001 \\
+ & TREAT $\times$ Pre-treatment labor hours per day & 0.63 & (87.3\%) & 0.14 & $<$0.0001 \\
+\bottomrule
+\end{tabular}
+\end{table}
